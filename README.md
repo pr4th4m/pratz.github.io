@@ -1,2 +1,1 @@
-# pratz.github.io
-Blogs site
+Customized blog site forked from https://github.com/bencentra/centrarium
