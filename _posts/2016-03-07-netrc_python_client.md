@@ -9,6 +9,7 @@ categories:
 tags:
     - python
     - netrc
+    - api
 ---
 
 #### What is Netrc file ?
