@@ -1,6 +1,7 @@
 gems:
-  - jekyll-sitemap
   - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-seo-tag
 
 exclude:
   - "/vendor/"
