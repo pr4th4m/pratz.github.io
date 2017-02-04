@@ -4,6 +4,7 @@ title:  On-prem ansible galaxy
 date:   2016-09-02 00:00:00
 author: pratz
 permalink: /on-prem-ansible-galaxy
+description: Use git as ansible galaxy inside company premises
 categories:
     - infrastructure-management
 tags:

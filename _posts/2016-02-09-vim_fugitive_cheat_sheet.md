@@ -4,6 +4,7 @@ title:  Vim fugitive (git wrapper)
 date:   2016-02-09 00:00:00
 author: pratz
 permalink: /vim-fugitive-cheat-sheet
+description: Vim plugin fugitive to effective manage git
 categories:
     - editor
 tags:

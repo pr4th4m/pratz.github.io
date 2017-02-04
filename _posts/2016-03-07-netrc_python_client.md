@@ -4,6 +4,7 @@ title:  Netrc python client
 date:   2016-03-07 00:00:00
 author: pratz
 permalink: /netrc-python-client
+description: python api client for netrc
 categories:
     - configuration
 tags:

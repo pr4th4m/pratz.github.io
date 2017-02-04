@@ -4,6 +4,7 @@ title:  Custom ansible module
 date:   2016-07-12 00:00:00
 author: pratz
 permalink: /custom-ansible-module
+description: Custom ansible modules which could be used in ansible playbooks
 categories:
     - infrastructure-management
 tags:

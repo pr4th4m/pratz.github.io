@@ -4,6 +4,7 @@ title:  Generate ssh key
 date:   2013-06-24 00:00:00
 author: pratz
 permalink: /generate-ssh-key
+description: Commands to generate ssh key
 categories:
     - protocol
 tags:

@@ -4,6 +4,7 @@ title:  Custom git credential helper in python
 date:   2016-04-10 00:00:00
 author: pratz
 permalink: /custom-git-credential-helper
+description: Custom git credential helper written in python
 cover:  /assets/posts/git.jpg
 categories:
     - version-control-system

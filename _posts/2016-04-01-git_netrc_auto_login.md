@@ -4,6 +4,7 @@ title:  Git login with Netrc
 date:   2016-04-01 09:43:59
 author: pratz
 permalink: /git-auto-login-with-netrc
+description: Login to git automatically with netrc
 cover:  /assets/posts/git.jpg
 categories:
     - version-control-system

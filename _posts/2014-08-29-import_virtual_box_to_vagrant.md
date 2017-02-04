@@ -4,6 +4,7 @@ title:  Import virtual box machine to vagrant
 date:   2014-08-29 00:00:00
 author: pratz
 permalink: /import-virtual-box-machine-to-vagrant
+description: Commands to import virtual box machines to vagrant
 categories:
     - devops
 tags:

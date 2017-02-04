@@ -4,6 +4,7 @@ title:  LXC port forwarding
 date:   2016-12-09 00:00:00
 author: pratz
 permalink: /lxc-port-forwarding
+description: Commands showing port forwarding for lxc
 categories:
     - devops
 tags:
