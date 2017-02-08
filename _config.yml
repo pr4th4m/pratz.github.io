@@ -1,4 +1,5 @@
 gems:
+  - jekyll-archives
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-seo-tag
@@ -33,6 +34,24 @@ highlightjs_theme: "monokai-sublime"
 
 # Disqus comments
 disqus_shortname: pratz0909
+
+# Archive settings (see https://github.com/jekyll/jekyll-archives/)
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layout: 'archive'
+  permalinks:
+    category: '/category/:name/'
+    tag: '/tag/:name/'
+
+# Category descriptions (for archive pages)
+descriptions:
+  - cat: jekyll
+    desc: "Posts describing Jekyll setup techniques."
+
+  - cat: dummy
+    desc: "Just some placeholder posts, lorem ipsum and the rest."
 
 # Google analytics
 # ga_tracking_id: "UA-XXXX-1"

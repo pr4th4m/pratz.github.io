@@ -6,6 +6,7 @@ GEM
     colorator (1.1.0)
     ffi (1.9.17)
     forwardable-extended (2.6.0)
+    gh-pages-travis (1.0.4)
     jekyll (3.3.1)
       addressable (~> 2.4)
       colorator (~> 1.0)
@@ -17,6 +18,8 @@ GEM
       pathutil (~> 0.9)
       rouge (~> 1.7)
       safe_yaml (~> 1.0)
+    jekyll-archives (2.1.1)
+      jekyll (>= 2.4)
     jekyll-paginate (1.1.0)
     jekyll-sass-converter (1.5.0)
       sass (~> 3.4)
@@ -46,7 +49,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  gh-pages-travis (~> 1.0)
   jekyll (~> 3.3.1)
+  jekyll-archives (~> 2.1)
   jekyll-paginate (~> 1.1.0)
   jekyll-seo-tag (~> 2.1.0)
   jekyll-sitemap (~> 0.12.0)
