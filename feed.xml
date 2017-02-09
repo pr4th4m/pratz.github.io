@@ -1,30 +1,947 @@
----
-layout: null
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml"/>
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
-    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% for post in site.posts limit:10 %}
+    <title>Prathamesh Nevagi (pratz)</title>
+    <description>Site powered by Jekyll and Centrarium theme.
+</description>
+    <link>http://pratz.github.io/</link>
+    <atom:link href="http://pratz.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 09 Feb 2017 09:23:13 +0000</pubDate>
+    <lastBuildDate>Thu, 09 Feb 2017 09:23:13 +0000</lastBuildDate>
+    <generator>Jekyll v3.3.1</generator>
+    
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-        {% for tag in post.tags %}
-        <category>{{ tag | xml_escape }}</category>
-        {% endfor %}
-        {% for cat in post.categories %}
-        <category>{{ cat | xml_escape }}</category>
-        {% endfor %}
+        <title>LXC port forwarding</title>
+        <description>&lt;h4 id=&quot;port-forwarding-for-lxc-containers&quot;&gt;Port forwarding for lxc containers&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Allow internet access and ipv4 forwarding:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  iptables -t nat -A POSTROUTING -s 10.0.3.0/24 -o br0 -j MASQUERADE
+  echo 1 LEFT ARROW /proc/sys/net/ipv4/ip_forward
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Persistent ipv4 forwarding&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  vi /etc/sysctl.conf
+  net.ipv4.ip_forward = 1
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Check forwarding:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  cat /proc/sys/net/ipv4/ip_forward
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;List iptables&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  sudo iptables -t nat -L -n -v
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Forwarding web server (apache2)&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  iptables -t nat -A PREROUTING -p tcp -i eth1 -d 192.168.99.103 --dport 9000 -j DNAT --to 10.0.3.76:80
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Forwarding SSH&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  iptables -t nat -A PREROUTING -p tcp -i eth1 -d 192.168.99.103 --dport 9001 -j DNAT --to 10.0.3.76:22
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Fri, 09 Dec 2016 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/lxc-port-forwarding</link>
+        <guid isPermaLink="true">http://pratz.github.io/lxc-port-forwarding</guid>
+        
+        <category>lxc</category>
+        
+        <category>port-forwarding</category>
+        
+        
+        <category>devops</category>
+        
       </item>
-    {% endfor %}
+    
+      <item>
+        <title>On-prem ansible galaxy</title>
+        <description>&lt;h4 id=&quot;on-prem-ansible-galaxy&quot;&gt;On-prem ansible galaxy&lt;/h4&gt;
+&lt;p&gt;Generic ansible roles can be shared through &lt;a href=&quot;https://galaxy.ansible.com&quot;&gt;ansible galaxy&lt;/a&gt; though in many cases we can not use ansible galaxy as its hosted publicly. Solution is to host something similar to ansible galaxy on-prem.&lt;/p&gt;
+
+&lt;h5 id=&quot;on-prem-galaxy-repository&quot;&gt;On-prem galaxy repository&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;For this blog I am considering stash (https://stash.company.com) but gitlab, gogs or similar should work as well&lt;/li&gt;
+  &lt;li&gt;Create a new project on stash &lt;code class=&quot;highlighter-rouge&quot;&gt;Ansible Galaxy&lt;/code&gt; with key &lt;code class=&quot;highlighter-rouge&quot;&gt;AG&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Create repo for each generic ansbile role.&lt;/li&gt;
+  &lt;li&gt;We can browse through all the generic ansbile roles at https://stash.company.com/projects/AG&lt;/li&gt;
+  &lt;li&gt;Now these roles can be used with multiple ansible playbooks.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;usage&quot;&gt;Usage&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;Create a new file &lt;code class=&quot;highlighter-rouge&quot;&gt;requirements.yml&lt;/code&gt; alongside ansible &lt;code class=&quot;highlighter-rouge&quot;&gt;playbook.yml&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;For this blog purposes I am considering &lt;code class=&quot;highlighter-rouge&quot;&gt;awscli&lt;/code&gt; as an generic ansible role with its own repo, which resides in our newly created stash project &lt;code class=&quot;highlighter-rouge&quot;&gt;Ansible Galaxy (AG)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Copy/paste below content to &lt;code class=&quot;highlighter-rouge&quot;&gt;requirements.yml&lt;/code&gt;&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ---
+  name: awscli
+  src: git+https://stash.company.com/scm/ag/awscli
+  version: master
+  path: ~/.ansible/roles
+
+  # name - name of role
+  # src - location of role
+  # version - which branch the role should be installed from
+  # path - where we want to install roles
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;requirements.yml&lt;/code&gt; files acts as a role dependency list for our &lt;code class=&quot;highlighter-rouge&quot;&gt;playbook.yml&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;installation&quot;&gt;Installation&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once we define our ansible playbook dependencies, its time to install them.&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  sudo ansible-galaxy install -r requirements.yml
+
+  # NOTE: no need to install ansible-galaxy seperately, it ships with default ansible installation
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Done! all the roles are now installed and ready to be used by our &lt;code class=&quot;highlighter-rouge&quot;&gt;playbook.yml&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 02 Sep 2016 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/on-prem-ansible-galaxy</link>
+        <guid isPermaLink="true">http://pratz.github.io/on-prem-ansible-galaxy</guid>
+        
+        <category>ansible</category>
+        
+        <category>ansible-galaxy</category>
+        
+        
+        <category>infrastructure-management</category>
+        
+      </item>
+    
+      <item>
+        <title>Custom ansible module</title>
+        <description>&lt;h3 id=&quot;how-to-write-ansible-custom-modules&quot;&gt;How to write ansible custom modules&lt;/h3&gt;
+&lt;p&gt;Ansible modules are easy way to interact between an existing application and ansible playbook. This blog covers how to write your own ansible module.&lt;/p&gt;
+
+&lt;h4 id=&quot;module&quot;&gt;Module&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create a python file called &lt;code class=&quot;highlighter-rouge&quot;&gt;greet.py&lt;/code&gt; with following content&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  def main():
+
+      module = AnsibleModule(
+          argument_spec = dict(
+              message = dict(required=True, type=&quot;str&quot;),
+          ),
+          supports_check_mode=True
+      )
+
+      # get module params
+      message = module.params.get(&quot;message&quot;)
+
+      try:
+          module.exit_json(changed=True, msg=message)
+      except:
+          module.fail_json(msg=&quot;It's bad not to greet someone&quot;)
+
+  from ansible.module_utils.basic import AnsibleModule
+  if __name__ == &quot;__main__&quot;:
+      main()
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;File name &lt;code class=&quot;highlighter-rouge&quot;&gt;greet.py&lt;/code&gt; is considered as ansible module.&lt;/li&gt;
+  &lt;li&gt;Arguments defined in ansible playbooks will be parsed by &lt;code class=&quot;highlighter-rouge&quot;&gt;AnsibleModule&lt;/code&gt; class.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Ansible module always returns json, for convenience ansible provides two methods, one for success and other for failure&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;          # For success
+          module.exit_json(changed=True, msg=message)
+
+          # For failure
+          module.fail_json(msg=&quot;It's bad not to greet someone&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;usage&quot;&gt;Usage&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create an ansible playbook called &lt;code class=&quot;highlighter-rouge&quot;&gt;playbook.yml&lt;/code&gt;&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  touch playbook.yml
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create directory &lt;code class=&quot;highlighter-rouge&quot;&gt;library&lt;/code&gt; alongside &lt;code class=&quot;highlighter-rouge&quot;&gt;playbook.yml&lt;/code&gt; and copy &lt;code class=&quot;highlighter-rouge&quot;&gt;greet.py&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;library&lt;/code&gt;&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  mkdir library
+  cp greet.py library
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now our directory structure should look like&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  library
+      |- greet.py
+  playbook.yml
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;We can now use &lt;code class=&quot;highlighter-rouge&quot;&gt;greet&lt;/code&gt; module with our &lt;code class=&quot;highlighter-rouge&quot;&gt;playbook.yml&lt;/code&gt;&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ---
+  - hosts: localhost
+    tasks:
+    - name: Lets start greeting
+      greet:
+          message: &quot;Good morning&quot;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Done !!&lt;/strong&gt; as simple as that ;)&lt;/p&gt;
+</description>
+        <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/custom-ansible-module</link>
+        <guid isPermaLink="true">http://pratz.github.io/custom-ansible-module</guid>
+        
+        <category>ansible</category>
+        
+        
+        <category>infrastructure-management</category>
+        
+      </item>
+    
+      <item>
+        <title>Custom git credential helper in python</title>
+        <description>&lt;h4 id=&quot;git-credential-helper&quot;&gt;Git credential helper:&lt;/h4&gt;
+&lt;p&gt;Git credential helper is used to save user credentials, so that user does not require to enter credentials on each git operation.
+Git provides few default git credential helpers, &lt;a href=&quot;https://git-scm.com/docs/gitcredentials&quot;&gt;see how to use them&lt;/a&gt;.
+This blog will demonstrate on how to build custom git credential helper.&lt;/p&gt;
+
+&lt;h4 id=&quot;simple-python-cli&quot;&gt;Simple python cli:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Let’s write a python cli called &lt;code class=&quot;highlighter-rouge&quot;&gt;auth_helper.py&lt;/code&gt;&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;c&quot;&gt;#!/usr/bin/env python&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;argparse&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Credential&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+          &lt;span class=&quot;c&quot;&gt;# logic to get username/password from auth file&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+          &lt;span class=&quot;c&quot;&gt;# logic to store username/password to auth file&lt;/span&gt;
+          &lt;span class=&quot;c&quot;&gt;# its better to encrypt password if its in plain text&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;erase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+          &lt;span class=&quot;c&quot;&gt;# logic to delete auth file&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argparse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ArgumentParser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_argument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'operation'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;store&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+              &lt;span class=&quot;n&quot;&gt;help&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Git action to be performed (get|store|erase)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;# parser all arguments&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;arguments&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parse_args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;# get credentials&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;credentials&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Credential&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arguments&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;get&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;creds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;credentials&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;username={0}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;creds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;password={0}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;creds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arguments&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;store&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;credentials&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+          &lt;span class=&quot;c&quot;&gt;# if credentials are already stored do not store again&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arguments&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;erase&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;credentials&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;erase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Invalid git operation&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;__main__&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;This cli takes three git operations as cli arguments &lt;code class=&quot;highlighter-rouge&quot;&gt;get&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;store&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;erase&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;These arguments are not coincident, they are used by git. Let’s know more about them.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;git-credentials-store&quot;&gt;Git credentials store:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Git credentials store looks for three arguments
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;get&lt;/code&gt;: called when triggered git pull, git fetch, git push etc.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;store&lt;/code&gt;: called when triggered git pull, git fetch, git push etc.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;erase&lt;/code&gt;: if our provided credentials fail, git will fallback to its own credentials prompt, if this fails as well &lt;code class=&quot;highlighter-rouge&quot;&gt;erase&lt;/code&gt; is called.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;git-helper-configuration&quot;&gt;Git helper configuration:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;To configure our cli as git helper, trigger the below command&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  git config --global credential.https://git.company.com.helper &quot;./path/to/cli/auth_helper.py&quot;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;This will define &lt;code class=&quot;highlighter-rouge&quot;&gt;auth_helper.py&lt;/code&gt; under &lt;code class=&quot;highlighter-rouge&quot;&gt;credential&lt;/code&gt; section of &lt;code class=&quot;highlighter-rouge&quot;&gt;.gitconfig&lt;/code&gt; file (user’s home directory).&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;https://git.company.com&lt;/code&gt; is the domain where git is hosted.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Done!!&lt;/strong&gt; Next time we use git, our &lt;code class=&quot;highlighter-rouge&quot;&gt;auth_helper.py&lt;/code&gt; should provide credentials for git authorization.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 10 Apr 2016 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/custom-git-credential-helper</link>
+        <guid isPermaLink="true">http://pratz.github.io/custom-git-credential-helper</guid>
+        
+        <category>git</category>
+        
+        <category>python</category>
+        
+        
+        <category>version-control-system</category>
+        
+      </item>
+    
+      <item>
+        <title>Git login with Netrc</title>
+        <description>&lt;h4 id=&quot;what-is-netrc-file-&quot;&gt;What is Netrc file ?&lt;/h4&gt;
+&lt;p&gt;Netrc file contains user credentials and is used to auto-login. It is usually located in users home directory &lt;code class=&quot;highlighter-rouge&quot;&gt;.netrc&lt;/code&gt; but location can be overridden with &lt;code class=&quot;highlighter-rouge&quot;&gt;NETRC&lt;/code&gt; environment variable. Netrc also supports macros &lt;code class=&quot;highlighter-rouge&quot;&gt;macdef&lt;/code&gt; to automate tasks. Netrc can be used with ftp, curl, git etc.&lt;/p&gt;
+
+&lt;h4 id=&quot;netrc-file&quot;&gt;Netrc file:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Create file named &lt;code class=&quot;highlighter-rouge&quot;&gt;.netrc&lt;/code&gt; in home directory.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lets consider your git server is hosted on domain &lt;code class=&quot;highlighter-rouge&quot;&gt;git.company.com&lt;/code&gt;&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ~ $ cat .netrc
+  machine git.company.com
+  login first.last
+  password secret-password
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;secure-netrc-file&quot;&gt;Secure netrc file:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;As &lt;code class=&quot;highlighter-rouge&quot;&gt;.netrc&lt;/code&gt; is used to store credentials, lets secure the file.&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ~ $ chmod 0600 ~/.netrc
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;That’s it, next time when you use git for domain &lt;code class=&quot;highlighter-rouge&quot;&gt;git.company.com&lt;/code&gt;, git should pick up the credentials on behalf of you ;)&lt;/p&gt;
+
+&lt;h4 id=&quot;warning&quot;&gt;Warning:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Netrc stores credentials in plan text. This is how netrc is meant to be ;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;use-case&quot;&gt;Use case:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Its a good idea to use netrc when you have token based authentication.&lt;/li&gt;
+  &lt;li&gt;Automation for service accounts with token based authentication.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 01 Apr 2016 09:43:59 +0000</pubDate>
+        <link>http://pratz.github.io/git-auto-login-with-netrc</link>
+        <guid isPermaLink="true">http://pratz.github.io/git-auto-login-with-netrc</guid>
+        
+        <category>git</category>
+        
+        <category>netrc</category>
+        
+        
+        <category>version-control-system</category>
+        
+      </item>
+    
+      <item>
+        <title>Netrc python client</title>
+        <description>&lt;h4 id=&quot;what-is-netrc-file-&quot;&gt;What is Netrc file ?&lt;/h4&gt;
+&lt;p&gt;Netrc file contains user credentials and is used to auto-login. It is usually located in users home directory &lt;code class=&quot;highlighter-rouge&quot;&gt;.netrc&lt;/code&gt; but location can be overridden with &lt;code class=&quot;highlighter-rouge&quot;&gt;NETRC&lt;/code&gt; environment variable. Netrc also supports macros &lt;code class=&quot;highlighter-rouge&quot;&gt;macdef&lt;/code&gt; to automate tasks. Netrc can be used with ftp, curl, git etc.&lt;/p&gt;
+
+&lt;h4 id=&quot;netrc-file-sample&quot;&gt;Netrc file sample:&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ $ cat .netrc
+machine product.company.com
+login first.last
+password secret-password
+
+macdef macro-name1
+command1
+command2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;get-client&quot;&gt;Get client:&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -o netrc_client.py  &quot;https://gist.githubusercontent.com/pratz/789dc165c6d9f79be86608547b128c69/raw/41fb7796f6b6d0a09ac5ddeaf8c79de30a2387ed/NetRc%2520-%2520read,%2520write,%2520update&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;client-compatibility&quot;&gt;Client compatibility:&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- Linux/Mac
+- Python 2.7.x
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;usage&quot;&gt;Usage:&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# create client
+netrc_instance = NetRc(
+        &quot;product.company.com&quot;,
+        login=&quot;first.last&quot;,
+        password=&quot;secret-password&quot;,
+        account=&quot;&quot;, # account is optional
+        )
+
+# create or update file content
+netrc_instance.create_or_update()
+
+# Custom file path (not recommended, as other programs might look for .netrc in users home directory)
+NETRC_FILE_PATH = /custom/file/path
+netrc_instance.create_or_update(path=NETRC_FILE_PATH)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;warning&quot;&gt;Warning:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Netrc stores credentials in plan text. This is how netrc is meant to be ;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;use-case&quot;&gt;Use case:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Its a good idea to use netrc when you have token based authentication.&lt;/li&gt;
+  &lt;li&gt;Automation for service accounts with token based authentication.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 07 Mar 2016 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/netrc-python-client</link>
+        <guid isPermaLink="true">http://pratz.github.io/netrc-python-client</guid>
+        
+        <category>python</category>
+        
+        <category>netrc</category>
+        
+        <category>api</category>
+        
+        
+        <category>configuration</category>
+        
+      </item>
+    
+      <item>
+        <title>Vim fugitive (git wrapper)</title>
+        <description>&lt;h4 id=&quot;quick-start-guide-to-use-vim-fugitive&quot;&gt;Quick start guide to use vim fugitive:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog&lt;/code&gt; if current file is opened then show logs for it else show all commit logs.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gstatus&lt;/code&gt; gives the status.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gcommit&lt;/code&gt; commit the changes (Note: first you need to stage them, do this with “-“).&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gwrite&lt;/code&gt; writes current file to index i.e to staging area.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gread&lt;/code&gt; reverts back the current file to the latest commit state.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gremove&lt;/code&gt; removes the current file.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gmove &amp;lt;target_path&amp;gt;&lt;/code&gt; moves the current file to the given target_path&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gblame&lt;/code&gt; shows the blame line by line&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;browse-git-objects&quot;&gt;Browse git objects:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gedit &amp;lt;branch_name:file_path&amp;gt;&lt;/code&gt; shows the file on specified branch_name.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gedit &amp;lt;commit_id&amp;gt;&lt;/code&gt; shows the specified commit&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;exploring-git-history&quot;&gt;Exploring git history:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gedit&lt;/code&gt; shows the current file in current state.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog -10&lt;/code&gt; shows only latest 10 logs.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog --&lt;/code&gt; shows all commits in quick fix list.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog -- %&lt;/code&gt; shows all commits only where current file is included.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog --grep=findme --&lt;/code&gt; search for ‘findme’ in all ancestral commit messages&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog --grep=findme -- %&lt;/code&gt; search for ‘findme’ in all ancestral commit messages that touch the currently active file&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ggrep &amp;lt;search_string&amp;gt; (branch|commitid)&lt;/code&gt; search for the search_string and shows in quick fix list.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;quick-fix&quot;&gt;Quick fix:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;copen&lt;/code&gt; open quick fix window&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cnext&lt;/code&gt; next quick fix window&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cprev&lt;/code&gt; next quick fix window&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cfirst&lt;/code&gt; first quick fix window&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;clast&lt;/code&gt; last quick fix window&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;notes&quot;&gt;Notes:&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;When a commit is displayed, you can hit “enter” to get tree, blob, commits etc.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/vim-fugitive-cheat-sheet</link>
+        <guid isPermaLink="true">http://pratz.github.io/vim-fugitive-cheat-sheet</guid>
+        
+        <category>git</category>
+        
+        <category>vim</category>
+        
+        <category>fugitive</category>
+        
+        
+        <category>editor</category>
+        
+      </item>
+    
+      <item>
+        <title>Getting started with LVM</title>
+        <description>&lt;h4 id=&quot;intro&quot;&gt;Intro&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;Requirements:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;To use lvm we require a partition or entire disk (we will go with partitions).&lt;/li&gt;
+  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;fdsik&lt;/code&gt; or similar kind of program to partition your disk.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Steps:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Create physical volumes from disk partitions&lt;/li&gt;
+  &lt;li&gt;Create volume groups from physical volumes&lt;/li&gt;
+  &lt;li&gt;Create logical volumes from volume groups&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+&lt;h4 id=&quot;physical-volumes&quot;&gt;Physical Volumes:&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Listing Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   PV         VG      Fmt  Attr PSize   PFree   DevSize PV UUID
+   /dev/sda3  dev lvm2 a--  100.00m 100.00m 102.10m K0W4kZ-gqDT-EFXj-sWta-xYG2-Pkp2-2gBpr1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PV&lt;/code&gt; - Partition/Device name of Physical volume.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VG&lt;/code&gt; - Name of volume group.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Fmt&lt;/code&gt; - Format of physical volume.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Attr&lt;/code&gt; - (a) allocatable, (x) exported.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PSize&lt;/code&gt; - Total physical volume size.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PFree&lt;/code&gt; - Total physical volume free space available.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;DevSize&lt;/code&gt; - Device/Partion size.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PV UUID&lt;/code&gt; - Unique identifier for physical volume.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-o&lt;/code&gt; - Stands for options, it can list many options, see &lt;code class=&quot;highlighter-rouge&quot;&gt;pvs -o -h&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--separator&lt;/code&gt; - To separate each column.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--segments&lt;/code&gt; - Shows starting segment and length of segment (unit is physical extends).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Create Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   pvcreate &amp;lt;partion_or_device_name&amp;gt;
+   pvcreate /dev/sda3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--uuid&lt;/code&gt; - Provide a unique identifier.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-M2&lt;/code&gt; - Create a LVM2 format physical volume.
+    &lt;ul&gt;
+      &lt;li&gt;This is displayed by &lt;code class=&quot;highlighter-rouge&quot;&gt;pvs&lt;/code&gt; output field &lt;code class=&quot;highlighter-rouge&quot;&gt;Fmt&lt;/code&gt;.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--metadatasize&lt;/code&gt; - Padding size for each metadata.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--pvmetadatacopies&lt;/code&gt; - Number of metadata to be set aside on each physical volume.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--setphysicalvolumesize&lt;/code&gt; - Set a physical volume size.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Remove Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   pvremove &amp;lt;partion_or_device_name&amp;gt;
+   pvremove /dev/sda3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Resize Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   pvresize &amp;lt;partion_or_device_name&amp;gt;
+   pvresize /dev/sda3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Scan Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   pvscan
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Move Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   pvmove &amp;lt;partion_or_device_name&amp;gt;
+   pvmove /dev/sda3 /dev/sda4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+&lt;h4 id=&quot;volume-groups&quot;&gt;Volume Groups:&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Listing Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   VG      Attr   Ext   #PV #LV #SN VSize   VFree   VG UUID                                VProfile
+   dev wz--n- 4.00m   1   0   0 100.00m 100.00m 5gx2Ug-2TjU-t1YF-eTpe-ruRq-60OL-4Hpn5l
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VG&lt;/code&gt; - Name of the volume group.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Attr&lt;/code&gt; - Attribute options are as follows:
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt;permissions (r)&lt;/td&gt;
+              &lt;td&gt;(w)&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/li&gt;
+      &lt;li&gt;resi(z)eable&lt;/li&gt;
+      &lt;li&gt;e(x)ported&lt;/li&gt;
+      &lt;li&gt;(p)artial&lt;/li&gt;
+      &lt;li&gt;allocation policy - (c)ontiguous, c(l)ing, (n)ormal, (a)nywhere, (i)nherited&lt;/li&gt;
+      &lt;li&gt;(c)luster&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;#PV&lt;/code&gt; - Number of physical volumes.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;#LV&lt;/code&gt; - Number of logical volumes.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VSize&lt;/code&gt; - Total size of volume group.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VFree&lt;/code&gt; - Total free space on volume group.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VG UUID&lt;/code&gt; - Unique identifier for volume group.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-o&lt;/code&gt; - Stands for options, it can list many options, see &lt;code class=&quot;highlighter-rouge&quot;&gt;vgs -o -h&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--separator&lt;/code&gt; - To separate each column.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Create Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgcreate &amp;lt;group_name&amp;gt; &amp;lt;partion_or_device_name&amp;gt;
+   vgcreate dev /dev/sda3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-l&lt;/code&gt; - Set maximum logical volumes.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt; - Set maximum physical volumes.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-s&lt;/code&gt; - Set physical extent size (default is 4MB).&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-A&lt;/code&gt; - Autobackup.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Remove Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgremove &amp;lt;group_name&amp;gt;
+   vgremove dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Extend Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgextend &amp;lt;group_name&amp;gt; &amp;lt;partion_or_device_name&amp;gt;
+   vgextend dev /dev/sda4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Reduce Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgreduce &amp;lt;group_name&amp;gt; &amp;lt;partion_or_device_name&amp;gt;
+   vgreduce dev /dev/sda4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Rename Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgrename &amp;lt;group_name&amp;gt; &amp;lt;new_group_name&amp;gt;
+   vgrename dev devops
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Merge Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgmerge &amp;lt;new_group&amp;gt; &amp;lt;old_group&amp;gt;
+   vgmerge devops dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Split Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgsplit &amp;lt;old_group&amp;gt; &amp;lt;new_group&amp;gt;
+   vgsplit dev devops
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Scan Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgscan
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+&lt;h4 id=&quot;logical-volumes&quot;&gt;Logical Volumes:&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Listing Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   LV    VG      Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+   qa   dev -wi-a----- 12.00m
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LV&lt;/code&gt; - Name of logical volume.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VG&lt;/code&gt; - Name of volume group.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Attr&lt;/code&gt; - Attribute options are as follows:
+    &lt;ul&gt;
+      &lt;li&gt;volume type: (m)irrored, (M)irrored without initail sync, (o)rigin, (p)vmove, (s)napshot, invalid (S)napshot, (v)irtual, mirror (i)mage, mirror (I)mage out-of-sync, under (c)onversion&lt;/li&gt;
+      &lt;li&gt;permissions: (w)rite, (r)ead-only&lt;/li&gt;
+      &lt;li&gt;allocation policy - (c)ontiguous, c(l)ing, (n)ormal, (a)nywhere, (i)nherited&lt;/li&gt;
+      &lt;li&gt;fixed (m)inor&lt;/li&gt;
+      &lt;li&gt;state: (a)ctive, (s)uspended, (I)nvalid snapshot, invalid (S)uspended snapshot, mapped (d)evice present with-out tables, mapped device present with (i)nactive table&lt;/li&gt;
+      &lt;li&gt;device (o)pen (mounted in other words)
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LSize&lt;/code&gt; - Total size of logical volume.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-o&lt;/code&gt; - Stands for options, it can list many options, see &lt;code class=&quot;highlighter-rouge&quot;&gt;lvs -o -h&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--separator&lt;/code&gt; - To separate each column.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--segments&lt;/code&gt; - Shows starting segment and length of segment (unit is physical extends).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Create Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvcreate &amp;lt;volume_name&amp;gt; &amp;lt;group_name&amp;gt;
+   lvcreate -L 10M -n qa dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-L&lt;/code&gt; - Size of the volume [kKmMgGtT]&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-l&lt;/code&gt; - Number of extents&lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-C&lt;/code&gt; - Contiguous [y&lt;/td&gt;
+          &lt;td&gt;n]&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-i&lt;/code&gt; - Stripes&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-I&lt;/code&gt; - Stripe size&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-m&lt;/code&gt; - Mirrors&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-n&lt;/code&gt; - Volume name&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Remove Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvremove &amp;lt;group_name&amp;gt; &amp;lt;volume_name&amp;gt;
+   lvremove dev qa
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Extend Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvextend &amp;lt;group_name&amp;gt; &amp;lt;volume_name&amp;gt;
+   lvextend -L 10M dev qa
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-L&lt;/code&gt; - Size of the volume [kKmMgGtT]&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-l&lt;/code&gt; - Number of extents&lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-C&lt;/code&gt; - Contiguous [y&lt;/td&gt;
+          &lt;td&gt;n]&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-i&lt;/code&gt; - Stripes&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-I&lt;/code&gt; - Stripe size&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Reduce Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvreduce &amp;lt;group_name&amp;gt; &amp;lt;volume_name&amp;gt;
+   lvreduce -L 5M dev qa
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Resize Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvresize &amp;lt;group_name&amp;gt; &amp;lt;volume_name&amp;gt;
+   lvresize -L 5M dev qa
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Scan Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvscan
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Rename Volumes:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvrename &amp;lt;old_volume_name&amp;gt; &amp;lt;new_volume_name&amp;gt;
+   lvrename qa development
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/getting-started-with-lvm</link>
+        <guid isPermaLink="true">http://pratz.github.io/getting-started-with-lvm</guid>
+        
+        <category>lvm</category>
+        
+        <category>file-system</category>
+        
+        
+        <category>storage</category>
+        
+      </item>
+    
+      <item>
+        <title>Import virtual box machine to vagrant</title>
+        <description>&lt;h4 id=&quot;import-existing-virtual-box-machines-to-vagrant&quot;&gt;Import existing virtual box machines to vagrant&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Package a &lt;code class=&quot;highlighter-rouge&quot;&gt;.box&lt;/code&gt; file using the following command:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  vagrant package --base &amp;lt;vm_name&amp;gt; --output &amp;lt;output.box&amp;gt;
+
+  # vm_name - Name of the existing virtual box vm
+  # output.box - Output box file name
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Add newly created box file to vagrant using following command:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  vagrant box add &amp;lt;box_name&amp;gt; &amp;lt;output.box&amp;gt;
+
+  # box_name - Name of vagrant box
+  # output.box - Newly created box file
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 29 Aug 2014 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/import-virtual-box-machine-to-vagrant</link>
+        <guid isPermaLink="true">http://pratz.github.io/import-virtual-box-machine-to-vagrant</guid>
+        
+        <category>lxc</category>
+        
+        <category>port-forwarding</category>
+        
+        
+        <category>devops</category>
+        
+      </item>
+    
+      <item>
+        <title>Vim tips</title>
+        <description>&lt;h4 id=&quot;search-and-replace&quot;&gt;Search and replace:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Search and replace in entire project&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # search and fill buffer
+  args **/*.py
+
+  # replace and update
+  argdo %s/original/target/ge | update
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Remove blank lines&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  :g/^$/d
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;profiling&quot;&gt;Profiling&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Startup time profiling&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  vim --startuptime vim.log
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Complete profiling&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  :profile start profile.log
+  :profile func *
+  :profile file *
+  :profile pause
+  # Note - be patient
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 15 Aug 2014 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/vim-tips</link>
+        <guid isPermaLink="true">http://pratz.github.io/vim-tips</guid>
+        
+        <category>vim</category>
+        
+        
+        <category>editor</category>
+        
+      </item>
+    
   </channel>
 </rss>

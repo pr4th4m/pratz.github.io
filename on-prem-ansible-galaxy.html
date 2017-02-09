@@ -6,9 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Prathamesh Nevagi (pratz)</title>
-  <meta name="description" content="Site powered by Jekyll and Centrarium theme.
-">
+  <title>On-prem ansible galaxy</title>
+  <meta name="description" content="Use git as ansible galaxy inside company premises">
 
   
   <meta name="author" content="Prathamesh Nevagi">
@@ -49,28 +48,29 @@
 
   <!-- Site styles -->
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://pratz.github.io/">
+  <link rel="canonical" href="http://pratz.github.io/on-prem-ansible-galaxy">
   <link rel="alternate" type="application/rss+xml" title="Prathamesh Nevagi (pratz)" href="http://pratz.github.io/feed.xml" />
 
   <!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>Prathamesh Nevagi (pratz) - Site powered by Jekyll and Centrarium theme.</title>
-<meta property="og:title" content="Prathamesh Nevagi (pratz)" />
-<meta name="description" content="Site powered by Jekyll and Centrarium theme." />
-<meta property="og:description" content="Site powered by Jekyll and Centrarium theme." />
-<link rel="canonical" href="http://pratz.github.io/" />
-<meta property="og:url" content="http://pratz.github.io/" />
+<title>On-prem ansible galaxy - Prathamesh Nevagi (pratz)</title>
+<meta property="og:title" content="On-prem ansible galaxy" />
+<meta name="description" content="Use git as ansible galaxy inside company premises" />
+<meta property="og:description" content="Use git as ansible galaxy inside company premises" />
+<link rel="canonical" href="http://pratz.github.io/on-prem-ansible-galaxy" />
+<meta property="og:url" content="http://pratz.github.io/on-prem-ansible-galaxy" />
 <meta property="og:site_name" content="Prathamesh Nevagi (pratz)" />
-<link rel="next" href="http://pratz.github.io/page2/">
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-09-02T00:00:00+00:00" />
 <script type="application/ld+json">
 {"@context": "http://schema.org",
-"@type": "WebSite",
-"name": "Prathamesh Nevagi (pratz)",
-"headline": "Prathamesh Nevagi (pratz)",
-"description": "Site powered by Jekyll and Centrarium theme.",
+"@type": "BlogPosting",
+"headline": "On-prem ansible galaxy",
+"datePublished": "2016-09-02T00:00:00+00:00",
+"description": "Use git as ansible galaxy inside company premises",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
 "url": "http://pratz.github.io/assets/logo.png"}},
-"url": "http://pratz.github.io/"}</script>
+"url": "http://pratz.github.io/on-prem-ansible-galaxy"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -165,149 +165,177 @@
 
 
     <div class="page-content">
-        <div class="home">
+        <div class="post">
 
-<div class="site-header-container has-cover" style="background-image: url(/assets/header_image.jpg);">
-  <div class="scrim has-cover">
-    <header class="site-header">
-      <h1 class="title">Prathamesh Nevagi (pratz)</h1>
-      <p class="subtitle">Future is Near</p>
+<div class="post-header-container " >
+  <div class="scrim ">
+    <header class="post-header">
+      <h1 class="title">On-prem ansible galaxy</h1>
+      <p class="info">by <strong>pratz</strong></p>
     </header>
   </div>
 </div>
 
 <div class="wrapper">
-<ul class="post-list">
+
+ <span class="page-divider">
+  <span class="one"></span>
+  <span class="two"></span>
+</span>
+ 
+
+<section class="post-meta">
+  <div class="post-date">September 2, 2016</div>
+  <div class="post-categories">
+  in 
+    
+    <a href="/category/infrastructure-management">Infrastructure-management</a>
+    
   
-  <li>
-    <h2>
-      <a class="post-link" href="/lxc-port-forwarding">LXC port forwarding</a>
-    </h2>
-    <section class="post-excerpt" itemprop="description">
-      <p>Port forwarding for lxc containers Allow internet access and ipv4 forwarding: iptables -t nat -A POSTROUTING -s 10.0.3.0/24 -o br0 -j MASQUERADE echo 1 LEFT ARROW /proc/sys/net/ipv4/ip_forward Persistent ipv4 forwarding vi /etc/sysctl.conf net.ipv4.ip_forward = 1 Check forwarding: cat /proc/sys/net/ipv4/ip_forward List iptables sudo iptables -t nat -L -n -v Forwarding web...</p>
-    </section>
-    <section class="post-meta">
-      <div class="post-date">December 9, 2016</div>
-      <div class="post-categories">
-      in 
-        
-        <a href="/category/devops">Devops</a>
-        
-      
-      </div>
-    </section>
-  </li>
-  
-  <hr>
-  
-  
-  <li>
-    <h2>
-      <a class="post-link" href="/on-prem-ansible-galaxy">On-prem ansible galaxy</a>
-    </h2>
-    <section class="post-excerpt" itemprop="description">
-      <p>On-prem ansible galaxy Generic ansible roles can be shared through ansible galaxy though in many cases we can not use ansible galaxy as its hosted publicly. Solution is to host something similar to ansible galaxy on-prem. On-prem galaxy repository For this blog I am considering stash (https://stash.company.com) but gitlab, gogs...</p>
-    </section>
-    <section class="post-meta">
-      <div class="post-date">September 2, 2016</div>
-      <div class="post-categories">
-      in 
-        
-        <a href="/category/infrastructure-management">Infrastructure-management</a>
-        
-      
-      </div>
-    </section>
-  </li>
-  
-  <hr>
-  
-  
-  <li>
-    <h2>
-      <a class="post-link" href="/custom-ansible-module">Custom ansible module</a>
-    </h2>
-    <section class="post-excerpt" itemprop="description">
-      <p>How to write ansible custom modules Ansible modules are easy way to interact between an existing application and ansible playbook. This blog covers how to write your own ansible module. Module Create a python file called greet.py with following content def main(): module = AnsibleModule( argument_spec = dict( message =...</p>
-    </section>
-    <section class="post-meta">
-      <div class="post-date">July 12, 2016</div>
-      <div class="post-categories">
-      in 
-        
-        <a href="/category/infrastructure-management">Infrastructure-management</a>
-        
-      
-      </div>
-    </section>
-  </li>
-  
-  <hr>
-  
-  
-  <li>
-    <h2>
-      <a class="post-link" href="/custom-git-credential-helper">Custom git credential helper in python</a>
-    </h2>
-    <section class="post-excerpt" itemprop="description">
-      <p>Git credential helper: Git credential helper is used to save user credentials, so that user does not require to enter credentials on each git operation. Git provides few default git credential helpers, see how to use them. This blog will demonstrate on how to build custom git credential helper. Simple...</p>
-    </section>
-    <section class="post-meta">
-      <div class="post-date">April 10, 2016</div>
-      <div class="post-categories">
-      in 
-        
-        <a href="/category/version-control-system">Version-control-system</a>
-        
-      
-      </div>
-    </section>
-  </li>
-  
-  <hr>
-  
-  
-  <li>
-    <h2>
-      <a class="post-link" href="/git-auto-login-with-netrc">Git login with Netrc</a>
-    </h2>
-    <section class="post-excerpt" itemprop="description">
-      <p>What is Netrc file ? Netrc file contains user credentials and is used to auto-login. It is usually located in users home directory .netrc but location can be overridden with NETRC environment variable. Netrc also supports macros macdef to automate tasks. Netrc can be used with ftp, curl, git etc....</p>
-    </section>
-    <section class="post-meta">
-      <div class="post-date">April 1, 2016</div>
-      <div class="post-categories">
-      in 
-        
-        <a href="/category/version-control-system">Version-control-system</a>
-        
-      
-      </div>
-    </section>
-  </li>
-  
-  
+  </div>
+</section>
+
+<article class="post-content">
+  <h4 id="on-prem-ansible-galaxy">On-prem ansible galaxy</h4>
+<p>Generic ansible roles can be shared through <a href="https://galaxy.ansible.com">ansible galaxy</a> though in many cases we can not use ansible galaxy as its hosted publicly. Solution is to host something similar to ansible galaxy on-prem.</p>
+
+<h5 id="on-prem-galaxy-repository">On-prem galaxy repository</h5>
+<ul>
+  <li>For this blog I am considering stash (https://stash.company.com) but gitlab, gogs or similar should work as well</li>
+  <li>Create a new project on stash <code class="highlighter-rouge">Ansible Galaxy</code> with key <code class="highlighter-rouge">AG</code></li>
+  <li>Create repo for each generic ansbile role.</li>
+  <li>We can browse through all the generic ansbile roles at https://stash.company.com/projects/AG</li>
+  <li>Now these roles can be used with multiple ansible playbooks.</li>
 </ul>
 
-<nav class="pagination" role="navigation">
-	<p>
+<h5 id="usage">Usage</h5>
+<ul>
+  <li>Create a new file <code class="highlighter-rouge">requirements.yml</code> alongside ansible <code class="highlighter-rouge">playbook.yml</code>.</li>
+  <li>For this blog purposes I am considering <code class="highlighter-rouge">awscli</code> as an generic ansible role with its own repo, which resides in our newly created stash project <code class="highlighter-rouge">Ansible Galaxy (AG)</code></li>
+  <li>
+    <p>Copy/paste below content to <code class="highlighter-rouge">requirements.yml</code></p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  ---
+  name: awscli
+  src: git+https://stash.company.com/scm/ag/awscli
+  version: master
+  path: ~/.ansible/roles
+
+  # name - name of role
+  # src - location of role
+  # version - which branch the role should be installed from
+  # path - where we want to install roles
+</code></pre>
+    </div>
+  </li>
+  <li>The <code class="highlighter-rouge">requirements.yml</code> files acts as a role dependency list for our <code class="highlighter-rouge">playbook.yml</code></li>
+</ul>
+
+<h5 id="installation">Installation</h5>
+<ul>
+  <li>
+    <p>Once we define our ansible playbook dependencies, its time to install them.</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  sudo ansible-galaxy install -r requirements.yml
+
+  # NOTE: no need to install ansible-galaxy seperately, it ships with default ansible installation
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Done! all the roles are now installed and ready to be used by our <code class="highlighter-rouge">playbook.yml</code></p>
+  </li>
+</ul>
+
+</article>
+
+
+
+<section class="tags">
+  <strong>Tags:</strong> <a href="/tag/ansible">ansible</a>,&nbsp;<a href="/tag/ansible-galaxy">ansible-galaxy</a>
+</section>
+
+
+
+<section class="rss">
+  <p class="rss-subscribe text"><strong>Subscribe <a href="/feed.xml">via RSS</a></strong></p>
+</section>
+
+<section class="share">
+  <span>Share: </span>
+  
     
-		<span class="fa-stack fa-lg">
-      <i class="fa fa-square fa-stack-2x"></i>
-      <i class="fa fa-angle-double-left fa-stack-1x fa-inverse"></i>
-    </span>
-		
-		<span class="page-number">Page 1 of 3</span>
-		
-		<a class="newer-posts" href="/page2">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-square fa-stack-2x"></i>
-        <i class="fa fa-angle-double-right fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-		
-	</p>
-</nav>
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      <a href="//www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fpratz.github.io%2Fon-prem-ansible-galaxy"
+        onclick="window.open(this.href, 'linkedin-share', 'width=550,height=255');return false;">
+        <i class="fa fa-linkedin-square fa-lg"></i>
+      </a>
+    
+    
+    
+    
+  
+    
+    
+      <a href="//twitter.com/share?text=On-prem+ansible+galaxy&url=http%3A%2F%2Fpratz.github.io%2Fon-prem-ansible-galaxy&via=pratz"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=255');return false;">
+        <i class="fa fa-twitter-square fa-lg"></i>
+      </a>
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+      <a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent('http://pratz.github.io/on-prem-ansible-galaxy') + '&title=On-prem ansible galaxy'; return false">
+        <i class="fa fa-reddit-square fa-lg"></i>
+      </a>
+    
+    
+  
+</section>
+
+
+
+
+<section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'pratz0909';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
 
 </div>
 </div>

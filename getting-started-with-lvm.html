@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Getting started with LVM</title>
+  <meta name="description" content="Logical volume management LVM basic understanding">
+
+  
+  <meta name="author" content="Prathamesh Nevagi">
+  <meta name="copyright" content="&copy; Prathamesh Nevagi 2017">
+  
+
+  <!-- External libraries -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai-sublime.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css">
+
+  <!-- Favicon and other icons (made with http://www.favicon-generator.org/) -->
+  <link rel="shortcut icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/icons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/icons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/icons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/icons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/icons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/icons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/icons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/icons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/assets/icons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+  <link rel="manifest" href="/assets/icons/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/assets/icons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  
+
+  
+
+  
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://pratz.github.io/getting-started-with-lvm">
+  <link rel="alternate" type="application/rss+xml" title="Prathamesh Nevagi (pratz)" href="http://pratz.github.io/feed.xml" />
+
+  <!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>Getting started with LVM - Prathamesh Nevagi (pratz)</title>
+<meta property="og:title" content="Getting started with LVM" />
+<meta name="description" content="Logical volume management LVM basic understanding" />
+<meta property="og:description" content="Logical volume management LVM basic understanding" />
+<link rel="canonical" href="http://pratz.github.io/getting-started-with-lvm" />
+<meta property="og:url" content="http://pratz.github.io/getting-started-with-lvm" />
+<meta property="og:site_name" content="Prathamesh Nevagi (pratz)" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-10-29T00:00:00+00:00" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Getting started with LVM",
+"datePublished": "2014-10-29T00:00:00+00:00",
+"description": "Logical volume management LVM basic understanding",
+"publisher": {"@type": "Organization",
+"logo": {"@type": "ImageObject",
+"url": "http://pratz.github.io/assets/logo.png"}},
+"url": "http://pratz.github.io/getting-started-with-lvm"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+
+  <body>
+
+    <header class="navigation" role="banner">
+  <div class="navigation-wrapper">
+    <a href="/" class="logo">
+      
+      <img src="/assets/logo.png" alt="Prathamesh Nevagi (pratz)">
+      
+    </a>
+    <a href="javascript:void(0)" class="navigation-menu-button" id="js-mobile-menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav role="navigation">
+      <ul id="js-navigation-menu" class="navigation-menu show">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li class="nav-link"><a href="/blogs/">Blogs</a>
+          
+        
+          
+          <li class="nav-link"><a href="/open-source/">OpenSource</a>
+          
+        
+          
+          <li class="nav-link"><a href="/shell/">Shell</a>
+          
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <div class="page-content">
+        <div class="post">
+
+<div class="post-header-container has-cover" style="background-image: url(/assets/posts/hard_drive.jpg);">
+  <div class="scrim has-cover">
+    <header class="post-header">
+      <h1 class="title">Getting started with LVM</h1>
+      <p class="info">by <strong>pratz</strong></p>
+    </header>
+  </div>
+</div>
+
+<div class="wrapper">
+
+
+
+<section class="post-meta">
+  <div class="post-date">October 29, 2014</div>
+  <div class="post-categories">
+  in 
+    
+    <a href="/category/storage">Storage</a>
+    
+  
+  </div>
+</section>
+
+<article class="post-content">
+  <h4 id="intro">Intro</h4>
+
+<p><strong>Requirements:</strong></p>
+<ul>
+  <li>To use lvm we require a partition or entire disk (we will go with partitions).</li>
+  <li>Use <code class="highlighter-rouge">fdsik</code> or similar kind of program to partition your disk.</li>
+</ul>
+
+<p><strong>Steps:</strong></p>
+<ul>
+  <li>Create physical volumes from disk partitions</li>
+  <li>Create volume groups from physical volumes</li>
+  <li>Create logical volumes from volume groups</li>
+</ul>
+
+<hr />
+<h4 id="physical-volumes">Physical Volumes:</h4>
+<p><strong>Listing Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   PV         VG      Fmt  Attr PSize   PFree   DevSize PV UUID
+   /dev/sda3  dev lvm2 a--  100.00m 100.00m 102.10m K0W4kZ-gqDT-EFXj-sWta-xYG2-Pkp2-2gBpr1
+</code></pre>
+</div>
+
+<p><strong>Output:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">PV</code> - Partition/Device name of Physical volume.</li>
+  <li><code class="highlighter-rouge">VG</code> - Name of volume group.</li>
+  <li><code class="highlighter-rouge">Fmt</code> - Format of physical volume.</li>
+  <li><code class="highlighter-rouge">Attr</code> - (a) allocatable, (x) exported.</li>
+  <li><code class="highlighter-rouge">PSize</code> - Total physical volume size.</li>
+  <li><code class="highlighter-rouge">PFree</code> - Total physical volume free space available.</li>
+  <li><code class="highlighter-rouge">DevSize</code> - Device/Partion size.</li>
+  <li><code class="highlighter-rouge">PV UUID</code> - Unique identifier for physical volume.</li>
+</ul>
+
+<p><strong>Commonly used options:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">-o</code> - Stands for options, it can list many options, see <code class="highlighter-rouge">pvs -o -h</code>.</li>
+  <li><code class="highlighter-rouge">--separator</code> - To separate each column.</li>
+  <li><code class="highlighter-rouge">--segments</code> - Shows starting segment and length of segment (unit is physical extends).</li>
+</ul>
+
+<p><strong>Create Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   pvcreate &lt;partion_or_device_name&gt;
+   pvcreate /dev/sda3
+</code></pre>
+</div>
+
+<p><strong>Commonly used options:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">--uuid</code> - Provide a unique identifier.</li>
+  <li><code class="highlighter-rouge">-M2</code> - Create a LVM2 format physical volume.
+    <ul>
+      <li>This is displayed by <code class="highlighter-rouge">pvs</code> output field <code class="highlighter-rouge">Fmt</code>.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">--metadatasize</code> - Padding size for each metadata.</li>
+  <li><code class="highlighter-rouge">--pvmetadatacopies</code> - Number of metadata to be set aside on each physical volume.</li>
+  <li><code class="highlighter-rouge">--setphysicalvolumesize</code> - Set a physical volume size.</li>
+</ul>
+
+<p><strong>Remove Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   pvremove &lt;partion_or_device_name&gt;
+   pvremove /dev/sda3
+</code></pre>
+</div>
+
+<p><strong>Resize Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   pvresize &lt;partion_or_device_name&gt;
+   pvresize /dev/sda3
+</code></pre>
+</div>
+
+<p><strong>Scan Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   pvscan
+</code></pre>
+</div>
+
+<p><strong>Move Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   pvmove &lt;partion_or_device_name&gt;
+   pvmove /dev/sda3 /dev/sda4
+</code></pre>
+</div>
+
+<hr />
+<h4 id="volume-groups">Volume Groups:</h4>
+<p><strong>Listing Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   VG      Attr   Ext   #PV #LV #SN VSize   VFree   VG UUID                                VProfile
+   dev wz--n- 4.00m   1   0   0 100.00m 100.00m 5gx2Ug-2TjU-t1YF-eTpe-ruRq-60OL-4Hpn5l
+</code></pre>
+</div>
+
+<p><strong>Output:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">VG</code> - Name of the volume group.</li>
+  <li><code class="highlighter-rouge">Attr</code> - Attribute options are as follows:
+    <ul>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>permissions (r)</td>
+              <td>(w)</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>resi(z)eable</li>
+      <li>e(x)ported</li>
+      <li>(p)artial</li>
+      <li>allocation policy - (c)ontiguous, c(l)ing, (n)ormal, (a)nywhere, (i)nherited</li>
+      <li>(c)luster</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">#PV</code> - Number of physical volumes.</li>
+  <li><code class="highlighter-rouge">#LV</code> - Number of logical volumes.</li>
+  <li><code class="highlighter-rouge">VSize</code> - Total size of volume group.</li>
+  <li><code class="highlighter-rouge">VFree</code> - Total free space on volume group.</li>
+  <li><code class="highlighter-rouge">VG UUID</code> - Unique identifier for volume group.</li>
+</ul>
+
+<p><strong>Commonly used options:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">-o</code> - Stands for options, it can list many options, see <code class="highlighter-rouge">vgs -o -h</code>.</li>
+  <li><code class="highlighter-rouge">--separator</code> - To separate each column.</li>
+</ul>
+
+<p><strong>Create Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   vgcreate &lt;group_name&gt; &lt;partion_or_device_name&gt;
+   vgcreate dev /dev/sda3
+</code></pre>
+</div>
+
+<p><strong>Commonly used options:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">-l</code> - Set maximum logical volumes.</li>
+  <li><code class="highlighter-rouge">-p</code> - Set maximum physical volumes.</li>
+  <li><code class="highlighter-rouge">-s</code> - Set physical extent size (default is 4MB).</li>
+  <li><code class="highlighter-rouge">-A</code> - Autobackup.</li>
+</ul>
+
+<p><strong>Remove Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   vgremove &lt;group_name&gt;
+   vgremove dev
+</code></pre>
+</div>
+
+<p><strong>Extend Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   vgextend &lt;group_name&gt; &lt;partion_or_device_name&gt;
+   vgextend dev /dev/sda4
+</code></pre>
+</div>
+
+<p><strong>Reduce Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   vgreduce &lt;group_name&gt; &lt;partion_or_device_name&gt;
+   vgreduce dev /dev/sda4
+</code></pre>
+</div>
+
+<p><strong>Rename Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   vgrename &lt;group_name&gt; &lt;new_group_name&gt;
+   vgrename dev devops
+</code></pre>
+</div>
+
+<p><strong>Merge Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   vgmerge &lt;new_group&gt; &lt;old_group&gt;
+   vgmerge devops dev
+</code></pre>
+</div>
+
+<p><strong>Split Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   vgsplit &lt;old_group&gt; &lt;new_group&gt;
+   vgsplit dev devops
+</code></pre>
+</div>
+
+<p><strong>Scan Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   vgscan
+</code></pre>
+</div>
+
+<hr />
+<h4 id="logical-volumes">Logical Volumes:</h4>
+<p><strong>Listing Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   LV    VG      Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+   qa   dev -wi-a----- 12.00m
+</code></pre>
+</div>
+
+<p><strong>Output:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">LV</code> - Name of logical volume.</li>
+  <li><code class="highlighter-rouge">VG</code> - Name of volume group.</li>
+  <li><code class="highlighter-rouge">Attr</code> - Attribute options are as follows:
+    <ul>
+      <li>volume type: (m)irrored, (M)irrored without initail sync, (o)rigin, (p)vmove, (s)napshot, invalid (S)napshot, (v)irtual, mirror (i)mage, mirror (I)mage out-of-sync, under (c)onversion</li>
+      <li>permissions: (w)rite, (r)ead-only</li>
+      <li>allocation policy - (c)ontiguous, c(l)ing, (n)ormal, (a)nywhere, (i)nherited</li>
+      <li>fixed (m)inor</li>
+      <li>state: (a)ctive, (s)uspended, (I)nvalid snapshot, invalid (S)uspended snapshot, mapped (d)evice present with-out tables, mapped device present with (i)nactive table</li>
+      <li>device (o)pen (mounted in other words)
+        <ul>
+          <li><code class="highlighter-rouge">LSize</code> - Total size of logical volume.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Commonly used options:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">-o</code> - Stands for options, it can list many options, see <code class="highlighter-rouge">lvs -o -h</code>.</li>
+  <li><code class="highlighter-rouge">--separator</code> - To separate each column.</li>
+  <li><code class="highlighter-rouge">--segments</code> - Shows starting segment and length of segment (unit is physical extends).</li>
+</ul>
+
+<p><strong>Create Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   lvcreate &lt;volume_name&gt; &lt;group_name&gt;
+   lvcreate -L 10M -n qa dev
+</code></pre>
+</div>
+
+<p><strong>Commonly used options:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">-L</code> - Size of the volume [kKmMgGtT]</li>
+  <li><code class="highlighter-rouge">-l</code> - Number of extents</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><code class="highlighter-rouge">-C</code> - Contiguous [y</td>
+          <td>n]</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><code class="highlighter-rouge">-i</code> - Stripes</li>
+  <li><code class="highlighter-rouge">-I</code> - Stripe size</li>
+  <li><code class="highlighter-rouge">-m</code> - Mirrors</li>
+  <li><code class="highlighter-rouge">-n</code> - Volume name</li>
+</ul>
+
+<p><strong>Remove Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   lvremove &lt;group_name&gt; &lt;volume_name&gt;
+   lvremove dev qa
+</code></pre>
+</div>
+
+<p><strong>Extend Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   lvextend &lt;group_name&gt; &lt;volume_name&gt;
+   lvextend -L 10M dev qa
+</code></pre>
+</div>
+
+<p><strong>Commonly used options:</strong></p>
+<ul>
+  <li><code class="highlighter-rouge">-L</code> - Size of the volume [kKmMgGtT]</li>
+  <li><code class="highlighter-rouge">-l</code> - Number of extents</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><code class="highlighter-rouge">-C</code> - Contiguous [y</td>
+          <td>n]</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><code class="highlighter-rouge">-i</code> - Stripes</li>
+  <li><code class="highlighter-rouge">-I</code> - Stripe size</li>
+</ul>
+
+<p><strong>Reduce Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   lvreduce &lt;group_name&gt; &lt;volume_name&gt;
+   lvreduce -L 5M dev qa
+</code></pre>
+</div>
+
+<p><strong>Resize Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   lvresize &lt;group_name&gt; &lt;volume_name&gt;
+   lvresize -L 5M dev qa
+</code></pre>
+</div>
+
+<p><strong>Scan Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   lvscan
+</code></pre>
+</div>
+
+<p><strong>Rename Volumes:</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   lvrename &lt;old_volume_name&gt; &lt;new_volume_name&gt;
+   lvrename qa development
+</code></pre>
+</div>
+
+</article>
+
+
+
+<section class="tags">
+  <strong>Tags:</strong> <a href="/tag/lvm">lvm</a>,&nbsp;<a href="/tag/file-system">file-system</a>
+</section>
+
+
+
+<section class="rss">
+  <p class="rss-subscribe text"><strong>Subscribe <a href="/feed.xml">via RSS</a></strong></p>
+</section>
+
+<section class="share">
+  <span>Share: </span>
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      <a href="//www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fpratz.github.io%2Fgetting-started-with-lvm"
+        onclick="window.open(this.href, 'linkedin-share', 'width=550,height=255');return false;">
+        <i class="fa fa-linkedin-square fa-lg"></i>
+      </a>
+    
+    
+    
+    
+  
+    
+    
+      <a href="//twitter.com/share?text=Getting+started+with+LVM&url=http%3A%2F%2Fpratz.github.io%2Fgetting-started-with-lvm&via=pratz"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=255');return false;">
+        <i class="fa fa-twitter-square fa-lg"></i>
+      </a>
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+      <a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent('http://pratz.github.io/getting-started-with-lvm') + '&title=Getting started with LVM'; return false">
+        <i class="fa fa-reddit-square fa-lg"></i>
+      </a>
+    
+    
+  
+</section>
+
+
+
+
+<section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'pratz0909';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+</div>
+</div>
+
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="site-navigation">
+
+      <p><strong>Site Map</strong></p>
+      <ul class="pages">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          <li class="nav-link"><a href="/blogs/">Blogs</a>
+        
+        
+        
+          <li class="nav-link"><a href="/open-source/">OpenSource</a>
+        
+        
+        
+          <li class="nav-link"><a href="/shell/">Shell</a>
+        
+        
+      </ul>
+    </div>
+
+    <div class="site-contact">
+
+      <p><strong>Contact</strong></p>
+      <ul class="social-media-list">
+        <li>
+          <a href="mailto:pratz0909@gmail.com">
+            <i class="fa fa-envelope-o"></i>
+            <span class="username">pratz0909@gmail.com</span>
+          </a>
+        </li>
+
+        
+          
+          <li>
+            <a href="https://github.com/pratz" title="Fork me on GitHub">
+              <i class="fa fa-github"></i>
+              <span class="username">pratz</span>
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            <a href="https://in.linkedin.com/in/pratz0909" title="Connect with me on LinkedIn">
+              <i class="fa fa-linkedin"></i>
+              <span class="username">prathamesh nevagi</span>
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            <a href="https://twitter.com/pratz0909" title="Follow me on Twitter">
+              <i class="fa fa-twitter"></i>
+              <span class="username">pratz</span>
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            <a href="https://www.reddit.com/user/pratz0909" title="Share to Reddit">
+              <i class="fa fa-reddit"></i>
+              <span class="username">pratz0909</span>
+            </a>
+          </li>
+          
+        
+
+      </ul>
+    </div>
+
+    <div class="site-signature">
+      <p class="rss-subscribe text"><strong>Subscribe <a href="/feed.xml">via RSS</a></strong></p>
+      <p class="text">Site powered by Jekyll and Centrarium theme.
+</p>
+    </div>
+
+  </div>
+
+</footer>
+
+<!-- Scripts -->
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  // Default syntax highlighting
+  hljs.initHighlightingOnLoad();
+
+  // Header
+  var menuToggle = $('#js-mobile-menu').unbind();
+  $('#js-navigation-menu').removeClass("show");
+  menuToggle.on('click', function(e) {
+    e.preventDefault();
+    $('#js-navigation-menu').slideToggle(function(){
+      if($('#js-navigation-menu').is(':hidden')) {
+        $('#js-navigation-menu').removeAttr('style');
+      }
+    });
+  });
+});
+
+</script>
+
+
+
+
+
+
+  </body>
+
+</html>
