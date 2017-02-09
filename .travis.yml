@@ -1,20 +1,10 @@
----
 language: ruby
 rvm:
   - 2.3.1
-
-before_install:
-  - openssl aes-256-cbc -K $encrypted_322ef0696a2c_key -iv $encrypted_322ef0696a2c_iv
-    -in id_rsa.enc -out id_rsa -d
-
+install:
+  - bundle install
 script:
-  - bundle exec gh-pages-travis
-
+  - bundle exec rake site:deploy --quiet
 env:
   global:
-    - DEPLOY_BRANCH="master"
-    - SOURCE_DIR="_site"
-    - TARGET_BRANCH="master"
-    - SSH_KEY="id_rsa"
-    - GIT_NAME="pratz"
-    - GIT_EMAIL="pratz0909@gmail.com"
+  - secure: r9AbBfYGDwNLcJM0Jpyy0QUit7atib2NLbDyGj5/AIEpe0MlMDzoEhmLtjlc1e9VrxaNDhhti5cDWKI+5Rqis+3v0rd7ZzGUpILxGkR6YAVypEHPmNHNFpbbMWwB11zkTg0teRvxsiwkJ9OLXLsOynZYx3hkfQciQHg7Rq3eyViiRUyAyMMjjQmvrCb4I1bBF2WQbNgGmmt5S5wSNbIcZqDtYno84At8VPDkoD+W4cgL9o5hDqwL6HBT0cy7ZwlURCI/Cxd2zu+1vvCaWS7muzzBQUbauYav3mWdhvyNEMysPlWcaxFjZbAF56z0b7pbkUzLh/8fxchhk9SBuS+wT3/5v5qQGxnv52nkPCCvpgfwBLcwY3UdvOmQb2Ta4VP1umHK4QmF/uVZJEDRhBAeIyeZ3jHsGEHBJRILTbzi/r7/Z7YptDiWvMniM50pheO3/P+Z5YUvElA1etOe2nE0snRNLhLJhSy8YmTGqhnu6nG9qp55iiqTokJyvmxAdOQ3XKwtXKU9OevB5mEXuZSzmVEVoNqMJRIs6rCWGcQyUUyl+Bb5j0Sx7J+OfLcwl4bBij8j2ZacmfkxbLtBr4KdWqE5LDXTcxIHg48fmAmmA7ikMlZK+KFAHgq2TnCs3U8I8IS1ez6ZDz0++8FtBDau8OVxSE58B0my5PFTuVrIkV4=

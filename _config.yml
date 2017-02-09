@@ -90,3 +90,10 @@ social:
     url: https://www.reddit.com/user/pratz0909
     desc: Share to Reddit
     share: true
+
+# Deployment details
+username: pratz
+repo: pratz.github.io
+branch: source
+source: .
+destination: _site
