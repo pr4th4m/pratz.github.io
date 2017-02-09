@@ -1,3 +1,6 @@
+branches:
+  except:
+    - master
 language: ruby
 rvm:
   - 2.3.1
