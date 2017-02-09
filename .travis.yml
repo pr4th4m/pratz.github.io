@@ -7,14 +7,8 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_322ef0696a2c_key -iv $encrypted_322ef0696a2c_iv
     -in id_rsa.enc -out id_rsa -d
 
-script:
-  - bundle exec gh-pages-travis
+install:
+  - bundle install
 
-env:
-  global:
-    - DEPLOY_BRANCH="master"
-    - SOURCE_DIR="_site"
-    - TARGET_BRANCH="master"
-    - SSH_KEY="id_rsa"
-    - GIT_NAME="pratz"
-    - GIT_EMAIL="pratz0909@gmail.com"
+script:
+  - bundle exec jekyll build
