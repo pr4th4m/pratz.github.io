@@ -6,9 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>artifactory</title>
-  <meta name="description" content="Site powered by Jekyll and Centrarium theme.
-">
+  <title>Runnel - Stream cli output over http</title>
+  <meta name="description" content="Stream command line output over http">
 
   
   <meta name="author" content="Prathamesh Nevagi">
@@ -49,26 +48,29 @@
 
   <!-- Site styles -->
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://pratz.github.io/tag/artifactory/">
+  <link rel="canonical" href="http://pratz.github.io/runnel">
   <link rel="alternate" type="application/rss+xml" title="Prathamesh Nevagi (pratz)" href="http://pratz.github.io/feed.xml" />
 
   <!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>artifactory - Prathamesh Nevagi (pratz)</title>
-<meta property="og:title" content="artifactory" />
-<meta name="description" content="Site powered by Jekyll and Centrarium theme." />
-<meta property="og:description" content="Site powered by Jekyll and Centrarium theme." />
-<link rel="canonical" href="http://pratz.github.io/tag/artifactory/" />
-<meta property="og:url" content="http://pratz.github.io/tag/artifactory/" />
+<title>Runnel - Stream cli output over http - Prathamesh Nevagi (pratz)</title>
+<meta property="og:title" content="Runnel - Stream cli output over http" />
+<meta name="description" content="Stream command line output over http" />
+<meta property="og:description" content="Stream command line output over http" />
+<link rel="canonical" href="http://pratz.github.io/runnel" />
+<meta property="og:url" content="http://pratz.github.io/runnel" />
 <meta property="og:site_name" content="Prathamesh Nevagi (pratz)" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-02-19T00:00:00+00:00" />
 <script type="application/ld+json">
 {"@context": "http://schema.org",
-"@type": "WebPage",
-"headline": "artifactory",
-"description": "Site powered by Jekyll and Centrarium theme.",
+"@type": "BlogPosting",
+"headline": "Runnel - Stream cli output over http",
+"datePublished": "2017-02-19T00:00:00+00:00",
+"description": "Stream command line output over http",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
 "url": "http://pratz.github.io/assets/logo.png"}},
-"url": "http://pratz.github.io/tag/artifactory/"}</script>
+"url": "http://pratz.github.io/runnel"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -169,30 +171,204 @@
 
 
     <div class="page-content">
-        <div class="wrapper">
-<div class="page">
+        <div class="post">
 
-  <header class="post-header">
-    <h1 class="post-title">Posts in "Artifactory"</h1>
-  </header>
+<div class="post-header-container " >
+  <div class="scrim ">
+    <header class="post-header">
+      <h1 class="title">Runnel - Stream cli output over http</h1>
+      <p class="info">by <strong>pratz</strong></p>
+    </header>
+  </div>
+</div>
 
-  <span class="page-divider">
+<div class="wrapper">
+
+ <span class="page-divider">
   <span class="one"></span>
   <span class="two"></span>
 </span>
+ 
+
+<section class="post-meta">
+  <div class="post-date">February 19, 2017</div>
+  <div class="post-categories">
+  in 
+    
+    <a href="/category/api-client">Api-client</a>
+    
+  
+  </div>
+</section>
+
+<article class="post-content">
+  <h4 id="runnel">Runnel</h4>
+<p>A program to streams any command line output over http.
+This is useful when we want to display command output on client side.
+One such use case can be, displaying live logs in browser which are running inside a container on server side.</p>
+
+<h4 id="installation">Installation:</h4>
+<ul>
+  <li>
+    <p>Using docker (recommended)</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  git clone https://github.com/VeritasOS/runnel.git
+  cd runnel
+
+  # build docker image
+  docker build -t runnel:latest .
+
+  # start runnel server
+  docker run --name runnel -d -p 127.0.0.1:9090:9090 runnel:latest
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Using binary (not recommended, because system dependencies are taken care in docker file on behalf of you)</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  git clone https://github.com/VeritasOS/runnel.git
+  cd runnel
+
+  ./bin/linux_64/runnel_server -p localhost:9090
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<h4 id="usage">Usage:</h4>
+<ul>
+  <li>
+    <p>Trigger below commands to get live stream</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  # Fire command with curl
+  curl -X POST -H 'Content-Type: application/json' -d '{"cmd":"ping -c 3 google.com"}' http://localhost:9090/command
+
+  # Get live output stream
+  # replace uuid with one which you get from above command
+  while true; do curl -sS -H 'Content-Type: application/json' 'http://localhost:9090/stream/fd4b1a38-94f4-4eba-80e7-50578ac4baae' | jq '.response'; done
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<h4 id="library">Library:</h4>
+<ul>
+  <li>We can use the api directly in golang code</li>
+  <li>
+    <p>Install redis server</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  # Get lib
+  go get github.com/veritasos/runnel/runnel
+
+  # Fire command
+  client := runnel.NewClient()
+  key, err := client.RunCommand("ping", "-c 2 google.com")
+
+  # Get output stream
+  client := runnel.NewClient()
+  output, err := client.Stream(key, 10)
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<h4 id="detailed-documentation">Detailed documentation:</h4>
+<p>A much more detailed documentation is provided here <a href="https://github.com/VeritasOS/runnel"><strong>runnel</strong></a></p>
+
+<p><a href="https://github.com/VeritasOS/runnel"><strong>Feel free to Contribute back</strong></a></p>
+
+</article>
 
 
-  <article class="post-content">
-    <ul class="posts-list">
-      
-      <li><strong><a class="post-link" href="/artifactory-python-client">Artifactory python client</a></strong><span class="post-date"> - February 4, 2017</span></li>
-      
-    </ul>
-  </article>
+
+<section class="tags">
+  <strong>Tags:</strong> <a href="/tag/golang">golang</a>,&nbsp;<a href="/tag/http">http</a>,&nbsp;<a href="/tag/cli">cli</a>
+</section>
+
+
+
+<section class="rss">
+  <p class="rss-subscribe text"><strong>Subscribe <a href="/feed.xml">via RSS</a></strong></p>
+</section>
+
+<section class="share">
+  <span>Share: </span>
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      <a href="//www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fpratz.github.io%2Frunnel"
+        onclick="window.open(this.href, 'linkedin-share', 'width=550,height=255');return false;">
+        <i class="fa fa-linkedin-square fa-lg"></i>
+      </a>
+    
+    
+    
+    
+  
+    
+    
+      <a href="//twitter.com/share?text=Runnel+-+Stream+cli+output+over+http&url=http%3A%2F%2Fpratz.github.io%2Frunnel&via=pratz"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=255');return false;">
+        <i class="fa fa-twitter-square fa-lg"></i>
+      </a>
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+      <a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent('http://pratz.github.io/runnel') + '&title=Runnel - Stream cli output over http'; return false">
+        <i class="fa fa-reddit-square fa-lg"></i>
+      </a>
+    
+    
+  
+</section>
+
+
+
+
+<section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'pratz0909';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
 
 </div>
 </div>
-<br>
 
     </div>
 

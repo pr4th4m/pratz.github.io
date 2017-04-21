@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://pratz.github.io/runnel</loc>
+<lastmod>2017-02-19T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://pratz.github.io/artifactory-python-client</loc>
 <lastmod>2017-02-04T00:00:00+00:00</lastmod>
 </url>
@@ -108,6 +112,15 @@
 </url>
 <url>
 <loc>http://pratz.github.io/tag/artifactory/</loc>
+</url>
+<url>
+<loc>http://pratz.github.io/tag/golang/</loc>
+</url>
+<url>
+<loc>http://pratz.github.io/tag/http/</loc>
+</url>
+<url>
+<loc>http://pratz.github.io/tag/cli/</loc>
 </url>
 <url>
 <loc>http://pratz.github.io/category/protocol/</loc>

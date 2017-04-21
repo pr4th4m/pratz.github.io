@@ -6,9 +6,101 @@
 </description>
     <link>http://pratz.github.io/</link>
     <atom:link href="http://pratz.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 21 Apr 2017 09:22:31 +0000</pubDate>
-    <lastBuildDate>Fri, 21 Apr 2017 09:22:31 +0000</lastBuildDate>
+    <pubDate>Fri, 21 Apr 2017 10:00:31 +0000</pubDate>
+    <lastBuildDate>Fri, 21 Apr 2017 10:00:31 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Runnel - Stream cli output over http</title>
+        <description>&lt;h4 id=&quot;runnel&quot;&gt;Runnel&lt;/h4&gt;
+&lt;p&gt;A program to streams any command line output over http.
+This is useful when we want to display command output on client side.
+One such use case can be, displaying live logs in browser which are running inside a container on server side.&lt;/p&gt;
+
+&lt;h4 id=&quot;installation&quot;&gt;Installation:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using docker (recommended)&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  git clone https://github.com/VeritasOS/runnel.git
+  cd runnel
+
+  # build docker image
+  docker build -t runnel:latest .
+
+  # start runnel server
+  docker run --name runnel -d -p 127.0.0.1:9090:9090 runnel:latest
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using binary (not recommended, because system dependencies are taken care in docker file on behalf of you)&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  git clone https://github.com/VeritasOS/runnel.git
+  cd runnel
+
+  ./bin/linux_64/runnel_server -p localhost:9090
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;usage&quot;&gt;Usage:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Trigger below commands to get live stream&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # Fire command with curl
+  curl -X POST -H 'Content-Type: application/json' -d '{&quot;cmd&quot;:&quot;ping -c 3 google.com&quot;}' http://localhost:9090/command
+
+  # Get live output stream
+  # replace uuid with one which you get from above command
+  while true; do curl -sS -H 'Content-Type: application/json' 'http://localhost:9090/stream/fd4b1a38-94f4-4eba-80e7-50578ac4baae' | jq '.response'; done
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;library&quot;&gt;Library:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;We can use the api directly in golang code&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install redis server&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # Get lib
+  go get github.com/veritasos/runnel/runnel
+
+  # Fire command
+  client := runnel.NewClient()
+  key, err := client.RunCommand(&quot;ping&quot;, &quot;-c 2 google.com&quot;)
+
+  # Get output stream
+  client := runnel.NewClient()
+  output, err := client.Stream(key, 10)
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;detailed-documentation&quot;&gt;Detailed documentation:&lt;/h4&gt;
+&lt;p&gt;A much more detailed documentation is provided here &lt;a href=&quot;https://github.com/VeritasOS/runnel&quot;&gt;&lt;strong&gt;runnel&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/VeritasOS/runnel&quot;&gt;&lt;strong&gt;Feel free to Contribute back&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 19 Feb 2017 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/runnel</link>
+        <guid isPermaLink="true">http://pratz.github.io/runnel</guid>
+        
+        <category>golang</category>
+        
+        <category>http</category>
+        
+        <category>cli</category>
+        
+        
+        <category>api-client</category>
+        
+      </item>
     
       <item>
         <title>Artifactory python client</title>
@@ -952,46 +1044,6 @@ netrc_instance.create_or_update(path=NETRC_FILE_PATH)
         
         
         <category>storage</category>
-        
-      </item>
-    
-      <item>
-        <title>Import virtual box machine to vagrant</title>
-        <description>&lt;h4 id=&quot;import-existing-virtual-box-machines-to-vagrant&quot;&gt;Import existing virtual box machines to vagrant&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Package a &lt;code class=&quot;highlighter-rouge&quot;&gt;.box&lt;/code&gt; file using the following command:&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  vagrant package --base &amp;lt;vm_name&amp;gt; --output &amp;lt;output.box&amp;gt;
-
-  # vm_name - Name of the existing virtual box vm
-  # output.box - Output box file name
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Add newly created box file to vagrant using following command:&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  vagrant box add &amp;lt;box_name&amp;gt; &amp;lt;output.box&amp;gt;
-
-  # box_name - Name of vagrant box
-  # output.box - Newly created box file
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Fri, 29 Aug 2014 00:00:00 +0000</pubDate>
-        <link>http://pratz.github.io/import-virtual-box-machine-to-vagrant</link>
-        <guid isPermaLink="true">http://pratz.github.io/import-virtual-box-machine-to-vagrant</guid>
-        
-        <category>lxc</category>
-        
-        <category>port-forwarding</category>
-        
-        
-        <category>devops</category>
         
       </item>
     
