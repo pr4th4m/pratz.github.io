@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://pratz.github.io/artifactory-python-client</loc>
+<lastmod>2017-02-04T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://pratz.github.io/lxc-port-forwarding</loc>
 <lastmod>2016-12-09T00:00:00+00:00</lastmod>
 </url>
@@ -103,10 +107,13 @@
 <loc>http://pratz.github.io/tag/ansible-galaxy/</loc>
 </url>
 <url>
+<loc>http://pratz.github.io/tag/artifactory/</loc>
+</url>
+<url>
 <loc>http://pratz.github.io/category/protocol/</loc>
 </url>
 <url>
-<loc>http://pratz.github.io/category/email/</loc>
+<loc>http://pratz.github.io/category/api-client/</loc>
 </url>
 <url>
 <loc>http://pratz.github.io/category/editor/</loc>
@@ -116,9 +123,6 @@
 </url>
 <url>
 <loc>http://pratz.github.io/category/storage/</loc>
-</url>
-<url>
-<loc>http://pratz.github.io/category/configuration/</loc>
 </url>
 <url>
 <loc>http://pratz.github.io/category/version-control-system/</loc>

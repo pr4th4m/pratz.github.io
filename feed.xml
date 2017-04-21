@@ -6,9 +6,118 @@
 </description>
     <link>http://pratz.github.io/</link>
     <atom:link href="http://pratz.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 09 Feb 2017 09:44:54 +0000</pubDate>
-    <lastBuildDate>Thu, 09 Feb 2017 09:44:54 +0000</lastBuildDate>
+    <pubDate>Fri, 21 Apr 2017 09:22:31 +0000</pubDate>
+    <lastBuildDate>Fri, 21 Apr 2017 09:22:31 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Artifactory python client</title>
+        <description>&lt;h4 id=&quot;py-artifactory&quot;&gt;Py-Artifactory&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.jfrog.com/artifactory&quot;&gt;&lt;strong&gt;Artifactory&lt;/strong&gt;&lt;/a&gt; is a artifact repository manager which supports software packages created by different technologies.
+It can also be integrated with major CI/CD and DevOps tools.
+This article shows how we can communicate with artifactory using a python api client.&lt;/p&gt;
+
+&lt;h4 id=&quot;pre-requisites&quot;&gt;Pre-requisites:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Python 2.7 or higher&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;libxml2/libxslt (will be deprecated in future releases)&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # Debian based
+  sudo apt-get install libxml2-dev libxslt1-dev
+
+  # RedHat based
+  sudo yum install libxml2-devel libxslt-devel
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;installation&quot;&gt;Installation:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Fire-up below command in terminal, &lt;code class=&quot;highlighter-rouge&quot;&gt;tag&lt;/code&gt; specifies a version number.&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  pip install git+https://github.com/veritasos/py-artifactory.git@&amp;lt;tag&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;usage&quot;&gt;Usage:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create client instance&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  from artifactory import Artifactory
+  artifactory = Artifactory(
+          url=&quot;http://127.0.0.1:8081&quot;,
+          username=&quot;username&quot;,
+          password=&quot;password&quot;,
+          )
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;List users&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  user_list = artifactory.security.users.list()
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Get user&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  user = artifactory.security.users.fetch(&quot;user.name&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create user&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  user = artifactory.security.users.new()
+  user.name = &quot;first.last&quot;
+  user.password = &quot;test&quot;
+  user.email = &quot;first.last@testartifactory.com&quot;
+  user.groups = [&quot;readers&quot;]
+  response = user.create()
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;And much more ……&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  Artifactory Users
+  Artifactory Groups
+  Artifactory Permissions
+  Artifactory Repositories
+  Artifactory Repository Replication
+  Artifactory LDAP
+  Artifactory User Api Keys
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;detailed-documentation&quot;&gt;Detailed documentation:&lt;/h4&gt;
+&lt;p&gt;A much more detailed documentation is provided here &lt;a href=&quot;https://github.com/VeritasOS/py-artifactory&quot;&gt;&lt;strong&gt;py-artifactory&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/pratz/py-openemm&quot;&gt;&lt;strong&gt;Feel free to Contribute back&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 04 Feb 2017 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/artifactory-python-client</link>
+        <guid isPermaLink="true">http://pratz.github.io/artifactory-python-client</guid>
+        
+        <category>python</category>
+        
+        <category>artifactory</category>
+        
+        <category>api</category>
+        
+        
+        <category>api-client</category>
+        
+      </item>
     
       <item>
         <title>LXC port forwarding</title>
@@ -467,7 +576,7 @@ netrc_instance.create_or_update(path=NETRC_FILE_PATH)
         <category>api</category>
         
         
-        <category>configuration</category>
+        <category>api-client</category>
         
       </item>
     
@@ -883,63 +992,6 @@ netrc_instance.create_or_update(path=NETRC_FILE_PATH)
         
         
         <category>devops</category>
-        
-      </item>
-    
-      <item>
-        <title>Vim tips</title>
-        <description>&lt;h4 id=&quot;search-and-replace&quot;&gt;Search and replace:&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Search and replace in entire project&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # search and fill buffer
-  args **/*.py
-
-  # replace and update
-  argdo %s/original/target/ge | update
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Remove blank lines&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  :g/^$/d
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;profiling&quot;&gt;Profiling&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Startup time profiling&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  vim --startuptime vim.log
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Complete profiling&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  :profile start profile.log
-  :profile func *
-  :profile file *
-  :profile pause
-  # Note - be patient
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Fri, 15 Aug 2014 00:00:00 +0000</pubDate>
-        <link>http://pratz.github.io/vim-tips</link>
-        <guid isPermaLink="true">http://pratz.github.io/vim-tips</guid>
-        
-        <category>vim</category>
-        
-        
-        <category>editor</category>
         
       </item>
     
