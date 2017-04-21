@@ -6,7 +6,7 @@ author: pratz
 permalink: /openemm-python-client
 description: Python api client for email marketing tool OpenEMM
 categories:
-    - email
+    - api-client
 tags:
     - python
     - openemm

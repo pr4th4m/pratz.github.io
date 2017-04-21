@@ -6,7 +6,7 @@ author: pratz
 permalink: /netrc-python-client
 description: python api client for netrc
 categories:
-    - configuration
+    - api-client
 tags:
     - python
     - netrc
