@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://pratz.github.io/nvim-auto-complete</loc>
+<lastmod>2017-04-12T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://pratz.github.io/runnel</loc>
 <lastmod>2017-02-19T00:00:00+00:00</lastmod>
 </url>
@@ -66,6 +70,9 @@
 <loc>http://pratz.github.io/open-source/</loc>
 </url>
 <url>
+<loc>http://pratz.github.io/series/</loc>
+</url>
+<url>
 <loc>http://pratz.github.io/shell/</loc>
 </url>
 <url>
@@ -123,6 +130,12 @@
 <loc>http://pratz.github.io/tag/cli/</loc>
 </url>
 <url>
+<loc>http://pratz.github.io/tag/nvim/</loc>
+</url>
+<url>
+<loc>http://pratz.github.io/tag/deoplete/</loc>
+</url>
+<url>
 <loc>http://pratz.github.io/category/protocol/</loc>
 </url>
 <url>
@@ -142,6 +155,9 @@
 </url>
 <url>
 <loc>http://pratz.github.io/category/infrastructure-management/</loc>
+</url>
+<url>
+<loc>http://pratz.github.io/category/neovim-as-ide/</loc>
 </url>
 <url>
 <loc>http://pratz.github.io/page2/</loc>

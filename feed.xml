@@ -6,9 +6,52 @@
 </description>
     <link>http://pratz.github.io/</link>
     <atom:link href="http://pratz.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 21 Apr 2017 10:00:31 +0000</pubDate>
-    <lastBuildDate>Fri, 21 Apr 2017 10:00:31 +0000</lastBuildDate>
+    <pubDate>Sun, 14 May 2017 11:44:54 +0000</pubDate>
+    <lastBuildDate>Sun, 14 May 2017 11:44:54 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>NVim auto complete</title>
+        <description>&lt;h4 id=&quot;intro&quot;&gt;Intro:&lt;/h4&gt;
+&lt;p&gt;Initially I used &lt;a href=&quot;https://github.com/Valloric/YouCompleteMe&quot;&gt;YouCompleteMe&lt;/a&gt; and &lt;a href=&quot;https://github.com/Shougo/neocomplete.vim&quot;&gt;Neocomplete&lt;/a&gt; for auto-completion with Vim. But then I made a move from &lt;a href=&quot;http://www.vim.org/&quot;&gt;Vim&lt;/a&gt; to &lt;a href=&quot;https://neovim.io/&quot;&gt;Neovim&lt;/a&gt;. While browsing I stumbled upon &lt;a href=&quot;https://github.com/Shougo/deoplete.nvim&quot;&gt;Deoplete&lt;/a&gt;, an auto-complete for Neovim and boy!! I was surprised by its performance. Actually, Neocomplete and Deoplete are created by the same author, first for Vim and later for Neovim. I must say, Deoplete leverages Neovim’s async feature very well to provide an excellent performance.&lt;/p&gt;
+
+&lt;p&gt;Deoplete is a general asynchronous auto-completion framework, however, it provides language specific auto-completion through different sources. Two of which, for &lt;a href=&quot;https://github.com/zchee/deoplete-jedi&quot;&gt;Python&lt;/a&gt; and &lt;a href=&quot;https://github.com/zchee/deoplete-go&quot;&gt;Go&lt;/a&gt;, are shown below, as those are the once which I use.&lt;/p&gt;
+
+&lt;h4 id=&quot;deoplete-in-action&quot;&gt;Deoplete in action:&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;./assets/posts/nvim_as_ide/deoplete.gif&quot; alt=&quot;Deoplete&quot; title=&quot;Deoplete&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;deoplete-python-source&quot;&gt;Deoplete &lt;a href=&quot;https://github.com/zchee/deoplete-jedi&quot;&gt;python source&lt;/a&gt;:&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;./assets/posts/nvim_as_ide/deoplete_python.gif&quot; alt=&quot;Deoplete python&quot; title=&quot;Deoplete python&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;deoplete-go-source&quot;&gt;Deoplete &lt;a href=&quot;https://github.com/zchee/deoplete-go&quot;&gt;go source&lt;/a&gt;:&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;./assets/posts/nvim_as_ide/deoplete_go.gif&quot; alt=&quot;Deoplete go&quot; title=&quot;Deoplete go&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;deoplete-settings&quot;&gt;Deoplete settings:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Below are few Deoplete settings that I use&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_ignore_case = 1
+  let g:deoplete#sources#go = 'vim-go'
+  let g:deoplete#sources#python = 'jedi-vim'
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/nvim-auto-complete</link>
+        <guid isPermaLink="true">http://pratz.github.io/nvim-auto-complete</guid>
+        
+        <category>nvim</category>
+        
+        <category>deoplete</category>
+        
+        
+        <category>neovim-as-ide</category>
+        
+      </item>
     
       <item>
         <title>Runnel - Stream cli output over http</title>
@@ -733,317 +776,6 @@ netrc_instance.create_or_update(path=NETRC_FILE_PATH)
         
         
         <category>editor</category>
-        
-      </item>
-    
-      <item>
-        <title>Getting started with LVM</title>
-        <description>&lt;h4 id=&quot;intro&quot;&gt;Intro&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;Requirements:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;To use lvm we require a partition or entire disk (we will go with partitions).&lt;/li&gt;
-  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;fdsik&lt;/code&gt; or similar kind of program to partition your disk.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Steps:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Create physical volumes from disk partitions&lt;/li&gt;
-  &lt;li&gt;Create volume groups from physical volumes&lt;/li&gt;
-  &lt;li&gt;Create logical volumes from volume groups&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-&lt;h4 id=&quot;physical-volumes&quot;&gt;Physical Volumes:&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;Listing Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   PV         VG      Fmt  Attr PSize   PFree   DevSize PV UUID
-   /dev/sda3  dev lvm2 a--  100.00m 100.00m 102.10m K0W4kZ-gqDT-EFXj-sWta-xYG2-Pkp2-2gBpr1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PV&lt;/code&gt; - Partition/Device name of Physical volume.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VG&lt;/code&gt; - Name of volume group.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Fmt&lt;/code&gt; - Format of physical volume.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Attr&lt;/code&gt; - (a) allocatable, (x) exported.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PSize&lt;/code&gt; - Total physical volume size.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PFree&lt;/code&gt; - Total physical volume free space available.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;DevSize&lt;/code&gt; - Device/Partion size.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PV UUID&lt;/code&gt; - Unique identifier for physical volume.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-o&lt;/code&gt; - Stands for options, it can list many options, see &lt;code class=&quot;highlighter-rouge&quot;&gt;pvs -o -h&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--separator&lt;/code&gt; - To separate each column.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--segments&lt;/code&gt; - Shows starting segment and length of segment (unit is physical extends).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Create Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   pvcreate &amp;lt;partion_or_device_name&amp;gt;
-   pvcreate /dev/sda3
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--uuid&lt;/code&gt; - Provide a unique identifier.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-M2&lt;/code&gt; - Create a LVM2 format physical volume.
-    &lt;ul&gt;
-      &lt;li&gt;This is displayed by &lt;code class=&quot;highlighter-rouge&quot;&gt;pvs&lt;/code&gt; output field &lt;code class=&quot;highlighter-rouge&quot;&gt;Fmt&lt;/code&gt;.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--metadatasize&lt;/code&gt; - Padding size for each metadata.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--pvmetadatacopies&lt;/code&gt; - Number of metadata to be set aside on each physical volume.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--setphysicalvolumesize&lt;/code&gt; - Set a physical volume size.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Remove Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   pvremove &amp;lt;partion_or_device_name&amp;gt;
-   pvremove /dev/sda3
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Resize Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   pvresize &amp;lt;partion_or_device_name&amp;gt;
-   pvresize /dev/sda3
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Scan Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   pvscan
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Move Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   pvmove &amp;lt;partion_or_device_name&amp;gt;
-   pvmove /dev/sda3 /dev/sda4
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;hr /&gt;
-&lt;h4 id=&quot;volume-groups&quot;&gt;Volume Groups:&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;Listing Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   VG      Attr   Ext   #PV #LV #SN VSize   VFree   VG UUID                                VProfile
-   dev wz--n- 4.00m   1   0   0 100.00m 100.00m 5gx2Ug-2TjU-t1YF-eTpe-ruRq-60OL-4Hpn5l
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VG&lt;/code&gt; - Name of the volume group.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Attr&lt;/code&gt; - Attribute options are as follows:
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;table&gt;
-          &lt;tbody&gt;
-            &lt;tr&gt;
-              &lt;td&gt;permissions (r)&lt;/td&gt;
-              &lt;td&gt;(w)&lt;/td&gt;
-            &lt;/tr&gt;
-          &lt;/tbody&gt;
-        &lt;/table&gt;
-      &lt;/li&gt;
-      &lt;li&gt;resi(z)eable&lt;/li&gt;
-      &lt;li&gt;e(x)ported&lt;/li&gt;
-      &lt;li&gt;(p)artial&lt;/li&gt;
-      &lt;li&gt;allocation policy - (c)ontiguous, c(l)ing, (n)ormal, (a)nywhere, (i)nherited&lt;/li&gt;
-      &lt;li&gt;(c)luster&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;#PV&lt;/code&gt; - Number of physical volumes.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;#LV&lt;/code&gt; - Number of logical volumes.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VSize&lt;/code&gt; - Total size of volume group.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VFree&lt;/code&gt; - Total free space on volume group.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VG UUID&lt;/code&gt; - Unique identifier for volume group.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-o&lt;/code&gt; - Stands for options, it can list many options, see &lt;code class=&quot;highlighter-rouge&quot;&gt;vgs -o -h&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--separator&lt;/code&gt; - To separate each column.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Create Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgcreate &amp;lt;group_name&amp;gt; &amp;lt;partion_or_device_name&amp;gt;
-   vgcreate dev /dev/sda3
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-l&lt;/code&gt; - Set maximum logical volumes.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt; - Set maximum physical volumes.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-s&lt;/code&gt; - Set physical extent size (default is 4MB).&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-A&lt;/code&gt; - Autobackup.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Remove Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgremove &amp;lt;group_name&amp;gt;
-   vgremove dev
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Extend Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgextend &amp;lt;group_name&amp;gt; &amp;lt;partion_or_device_name&amp;gt;
-   vgextend dev /dev/sda4
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Reduce Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgreduce &amp;lt;group_name&amp;gt; &amp;lt;partion_or_device_name&amp;gt;
-   vgreduce dev /dev/sda4
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Rename Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgrename &amp;lt;group_name&amp;gt; &amp;lt;new_group_name&amp;gt;
-   vgrename dev devops
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Merge Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgmerge &amp;lt;new_group&amp;gt; &amp;lt;old_group&amp;gt;
-   vgmerge devops dev
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Split Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgsplit &amp;lt;old_group&amp;gt; &amp;lt;new_group&amp;gt;
-   vgsplit dev devops
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Scan Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   vgscan
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;hr /&gt;
-&lt;h4 id=&quot;logical-volumes&quot;&gt;Logical Volumes:&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;Listing Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   LV    VG      Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
-   qa   dev -wi-a----- 12.00m
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LV&lt;/code&gt; - Name of logical volume.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;VG&lt;/code&gt; - Name of volume group.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Attr&lt;/code&gt; - Attribute options are as follows:
-    &lt;ul&gt;
-      &lt;li&gt;volume type: (m)irrored, (M)irrored without initail sync, (o)rigin, (p)vmove, (s)napshot, invalid (S)napshot, (v)irtual, mirror (i)mage, mirror (I)mage out-of-sync, under (c)onversion&lt;/li&gt;
-      &lt;li&gt;permissions: (w)rite, (r)ead-only&lt;/li&gt;
-      &lt;li&gt;allocation policy - (c)ontiguous, c(l)ing, (n)ormal, (a)nywhere, (i)nherited&lt;/li&gt;
-      &lt;li&gt;fixed (m)inor&lt;/li&gt;
-      &lt;li&gt;state: (a)ctive, (s)uspended, (I)nvalid snapshot, invalid (S)uspended snapshot, mapped (d)evice present with-out tables, mapped device present with (i)nactive table&lt;/li&gt;
-      &lt;li&gt;device (o)pen (mounted in other words)
-        &lt;ul&gt;
-          &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LSize&lt;/code&gt; - Total size of logical volume.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-o&lt;/code&gt; - Stands for options, it can list many options, see &lt;code class=&quot;highlighter-rouge&quot;&gt;lvs -o -h&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--separator&lt;/code&gt; - To separate each column.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--segments&lt;/code&gt; - Shows starting segment and length of segment (unit is physical extends).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Create Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvcreate &amp;lt;volume_name&amp;gt; &amp;lt;group_name&amp;gt;
-   lvcreate -L 10M -n qa dev
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-L&lt;/code&gt; - Size of the volume [kKmMgGtT]&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-l&lt;/code&gt; - Number of extents&lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-C&lt;/code&gt; - Contiguous [y&lt;/td&gt;
-          &lt;td&gt;n]&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-i&lt;/code&gt; - Stripes&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-I&lt;/code&gt; - Stripe size&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-m&lt;/code&gt; - Mirrors&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-n&lt;/code&gt; - Volume name&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Remove Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvremove &amp;lt;group_name&amp;gt; &amp;lt;volume_name&amp;gt;
-   lvremove dev qa
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Extend Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvextend &amp;lt;group_name&amp;gt; &amp;lt;volume_name&amp;gt;
-   lvextend -L 10M dev qa
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Commonly used options:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-L&lt;/code&gt; - Size of the volume [kKmMgGtT]&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-l&lt;/code&gt; - Number of extents&lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-C&lt;/code&gt; - Contiguous [y&lt;/td&gt;
-          &lt;td&gt;n]&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-i&lt;/code&gt; - Stripes&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-I&lt;/code&gt; - Stripe size&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Reduce Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvreduce &amp;lt;group_name&amp;gt; &amp;lt;volume_name&amp;gt;
-   lvreduce -L 5M dev qa
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Resize Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvresize &amp;lt;group_name&amp;gt; &amp;lt;volume_name&amp;gt;
-   lvresize -L 5M dev qa
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Scan Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvscan
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Rename Volumes:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   lvrename &amp;lt;old_volume_name&amp;gt; &amp;lt;new_volume_name&amp;gt;
-   lvrename qa development
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
-        <link>http://pratz.github.io/getting-started-with-lvm</link>
-        <guid isPermaLink="true">http://pratz.github.io/getting-started-with-lvm</guid>
-        
-        <category>lvm</category>
-        
-        <category>file-system</category>
-        
-        
-        <category>storage</category>
         
       </item>
     
