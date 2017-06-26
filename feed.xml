@@ -6,9 +6,124 @@
 </description>
     <link>http://pratz.github.io/</link>
     <atom:link href="http://pratz.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 14 May 2017 11:44:54 +0000</pubDate>
-    <lastBuildDate>Sun, 14 May 2017 11:44:54 +0000</lastBuildDate>
+    <pubDate>Mon, 26 Jun 2017 17:54:13 +0000</pubDate>
+    <lastBuildDate>Mon, 26 Jun 2017 17:54:13 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Raspberry pi setup NFS and SMB server</title>
+        <description>&lt;h4 id=&quot;nfs-server&quot;&gt;NFS server&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install server&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  sudo apt install nfs-common nfs-server
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create directory you wanna share&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  mkdir /media/storage
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Edit file &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/exports&lt;/code&gt; with below content&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  /media/storage 192.168.1.0/24(rw,all_squash,insecure,no_subtree_check)
+  # &amp;lt;directory&amp;gt; &amp;lt;who_can_access&amp;gt; &amp;lt;options&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Restart services&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  sudo service nfs restart
+  /etc/init.d/nfs-kernel-server restart
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connecting from client (MacOS)&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  mkdir /Users/username/nfs_shared
+  sudo mount -v -o &quot;resvport&quot; 192.168.1.9:/media/storage /Users/username/nfs_shared
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;samba-server&quot;&gt;Samba server&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install server&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  sudo apt-get install samba samba-common-bin
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create samba password for system user&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  sudo smbpasswd -a pi
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create directory you wanna share&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  mkdir /media/storage
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Edit file &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/samba/smb.conf&lt;/code&gt; with below content&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  [PI]
+  comment = Pi workspace
+  path = /media/storage
+  create mask = 0775
+  directory mask = 0775
+  read only = no
+  browseable = yes
+  public = no
+  force user = pi
+  only guest = no
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Restart service&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  sudo service samba restart
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connecting from client (MacOS)&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  mkdir /Users/username/smb_shared
+  mount -t smbfs //pi@192.168.1.9/pi /Users/username/smb_shared
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 20 Apr 2017 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/raspi-nfs-smb</link>
+        <guid isPermaLink="true">http://pratz.github.io/raspi-nfs-smb</guid>
+        
+        <category>raspberry-pi</category>
+        
+        <category>nfs</category>
+        
+        <category>samba</category>
+        
+        
+        <category>electronics</category>
+        
+      </item>
     
       <item>
         <title>NVim auto complete</title>
@@ -712,70 +827,6 @@ netrc_instance.create_or_update(path=NETRC_FILE_PATH)
         
         
         <category>api-client</category>
-        
-      </item>
-    
-      <item>
-        <title>Vim fugitive (git wrapper)</title>
-        <description>&lt;h4 id=&quot;quick-start-guide-to-use-vim-fugitive&quot;&gt;Quick start guide to use vim fugitive:&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog&lt;/code&gt; if current file is opened then show logs for it else show all commit logs.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gstatus&lt;/code&gt; gives the status.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gcommit&lt;/code&gt; commit the changes (Note: first you need to stage them, do this with “-“).&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gwrite&lt;/code&gt; writes current file to index i.e to staging area.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gread&lt;/code&gt; reverts back the current file to the latest commit state.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gremove&lt;/code&gt; removes the current file.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gmove &amp;lt;target_path&amp;gt;&lt;/code&gt; moves the current file to the given target_path&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gblame&lt;/code&gt; shows the blame line by line&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;browse-git-objects&quot;&gt;Browse git objects:&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gedit &amp;lt;branch_name:file_path&amp;gt;&lt;/code&gt; shows the file on specified branch_name.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gedit &amp;lt;commit_id&amp;gt;&lt;/code&gt; shows the specified commit&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;exploring-git-history&quot;&gt;Exploring git history:&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gedit&lt;/code&gt; shows the current file in current state.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog -10&lt;/code&gt; shows only latest 10 logs.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog --&lt;/code&gt; shows all commits in quick fix list.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog -- %&lt;/code&gt; shows all commits only where current file is included.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog --grep=findme --&lt;/code&gt; search for ‘findme’ in all ancestral commit messages&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Glog --grep=findme -- %&lt;/code&gt; search for ‘findme’ in all ancestral commit messages that touch the currently active file&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ggrep &amp;lt;search_string&amp;gt; (branch|commitid)&lt;/code&gt; search for the search_string and shows in quick fix list.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;quick-fix&quot;&gt;Quick fix:&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;copen&lt;/code&gt; open quick fix window&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cnext&lt;/code&gt; next quick fix window&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cprev&lt;/code&gt; next quick fix window&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cfirst&lt;/code&gt; first quick fix window&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;clast&lt;/code&gt; last quick fix window&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;notes&quot;&gt;Notes:&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;When a commit is displayed, you can hit “enter” to get tree, blob, commits etc.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
-        <link>http://pratz.github.io/vim-fugitive-cheat-sheet</link>
-        <guid isPermaLink="true">http://pratz.github.io/vim-fugitive-cheat-sheet</guid>
-        
-        <category>git</category>
-        
-        <category>vim</category>
-        
-        <category>fugitive</category>
-        
-        
-        <category>editor</category>
         
       </item>
     

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://pratz.github.io/raspi-nfs-smb</loc>
+<lastmod>2017-04-20T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://pratz.github.io/nvim-auto-complete</loc>
 <lastmod>2017-04-12T00:00:00+00:00</lastmod>
 </url>
@@ -136,6 +140,15 @@
 <loc>http://pratz.github.io/tag/deoplete/</loc>
 </url>
 <url>
+<loc>http://pratz.github.io/tag/raspberry-pi/</loc>
+</url>
+<url>
+<loc>http://pratz.github.io/tag/nfs/</loc>
+</url>
+<url>
+<loc>http://pratz.github.io/tag/samba/</loc>
+</url>
+<url>
 <loc>http://pratz.github.io/category/protocol/</loc>
 </url>
 <url>
@@ -160,9 +173,15 @@
 <loc>http://pratz.github.io/category/neovim-as-ide/</loc>
 </url>
 <url>
+<loc>http://pratz.github.io/category/electronics/</loc>
+</url>
+<url>
 <loc>http://pratz.github.io/page2/</loc>
 </url>
 <url>
 <loc>http://pratz.github.io/page3/</loc>
+</url>
+<url>
+<loc>http://pratz.github.io/page4/</loc>
 </url>
 </urlset>

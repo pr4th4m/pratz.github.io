@@ -6,9 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>port-forwarding</title>
-  <meta name="description" content="Site powered by Jekyll and Centrarium theme.
-">
+  <title>Raspberry pi setup NFS and SMB server</title>
+  <meta name="description" content="Setup NFS and samba server on raspberry pi">
 
   
   <meta name="author" content="Prathamesh Nevagi">
@@ -49,26 +48,29 @@
 
   <!-- Site styles -->
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://pratz.github.io/tag/port-forwarding/">
+  <link rel="canonical" href="http://pratz.github.io/raspi-nfs-smb">
   <link rel="alternate" type="application/rss+xml" title="Prathamesh Nevagi (pratz)" href="http://pratz.github.io/feed.xml" />
 
   <!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>port-forwarding - Prathamesh Nevagi (pratz)</title>
-<meta property="og:title" content="port-forwarding" />
-<meta name="description" content="Site powered by Jekyll and Centrarium theme." />
-<meta property="og:description" content="Site powered by Jekyll and Centrarium theme." />
-<link rel="canonical" href="http://pratz.github.io/tag/port-forwarding/" />
-<meta property="og:url" content="http://pratz.github.io/tag/port-forwarding/" />
+<title>Raspberry pi setup NFS and SMB server - Prathamesh Nevagi (pratz)</title>
+<meta property="og:title" content="Raspberry pi setup NFS and SMB server" />
+<meta name="description" content="Setup NFS and samba server on raspberry pi" />
+<meta property="og:description" content="Setup NFS and samba server on raspberry pi" />
+<link rel="canonical" href="http://pratz.github.io/raspi-nfs-smb" />
+<meta property="og:url" content="http://pratz.github.io/raspi-nfs-smb" />
 <meta property="og:site_name" content="Prathamesh Nevagi (pratz)" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-04-20T00:00:00+00:00" />
 <script type="application/ld+json">
 {"@context": "http://schema.org",
-"@type": "WebPage",
-"headline": "port-forwarding",
-"description": "Site powered by Jekyll and Centrarium theme.",
+"@type": "BlogPosting",
+"headline": "Raspberry pi setup NFS and SMB server",
+"datePublished": "2017-04-20T00:00:00+00:00",
+"description": "Setup NFS and samba server on raspberry pi",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
 "url": "http://pratz.github.io/assets/logo.png"}},
-"url": "http://pratz.github.io/tag/port-forwarding/"}</script>
+"url": "http://pratz.github.io/raspi-nfs-smb"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -189,32 +191,227 @@
 
 
     <div class="page-content">
-        <div class="wrapper">
-<div class="page">
+        <div class="post">
 
-  <header class="post-header">
-    <h1 class="post-title">Posts in "Port-forwarding"</h1>
-  </header>
+<div class="post-header-container " >
+  <div class="scrim ">
+    <header class="post-header">
+      <h1 class="title">Raspberry pi setup NFS and SMB server</h1>
+      <p class="info">by <strong>pratz</strong></p>
+    </header>
+  </div>
+</div>
 
-  <span class="page-divider">
+<div class="wrapper">
+
+ <span class="page-divider">
   <span class="one"></span>
   <span class="two"></span>
 </span>
+ 
+
+<section class="post-meta">
+  <div class="post-date">April 20, 2017</div>
+  <div class="post-categories">
+  in 
+    
+    <a href="/category/electronics">Electronics</a>
+    
+  
+  </div>
+</section>
+
+<article class="post-content">
+  <h4 id="nfs-server">NFS server</h4>
+<ul>
+  <li>
+    <p>Install server</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  sudo apt install nfs-common nfs-server
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Create directory you wanna share</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  mkdir /media/storage
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Edit file <code class="highlighter-rouge">/etc/exports</code> with below content</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  /media/storage 192.168.1.0/24(rw,all_squash,insecure,no_subtree_check)
+  # &lt;directory&gt; &lt;who_can_access&gt; &lt;options&gt;
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Restart services</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  sudo service nfs restart
+  /etc/init.d/nfs-kernel-server restart
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Connecting from client (MacOS)</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  mkdir /Users/username/nfs_shared
+  sudo mount -v -o "resvport" 192.168.1.9:/media/storage /Users/username/nfs_shared
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<h4 id="samba-server">Samba server</h4>
+<ul>
+  <li>
+    <p>Install server</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  sudo apt-get install samba samba-common-bin
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Create samba password for system user</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  sudo smbpasswd -a pi
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Create directory you wanna share</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  mkdir /media/storage
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Edit file <code class="highlighter-rouge">/etc/samba/smb.conf</code> with below content</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  [PI]
+  comment = Pi workspace
+  path = /media/storage
+  create mask = 0775
+  directory mask = 0775
+  read only = no
+  browseable = yes
+  public = no
+  force user = pi
+  only guest = no
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Restart service</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  sudo service samba restart
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Connecting from client (MacOS)</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  mkdir /Users/username/smb_shared
+  mount -t smbfs //pi@192.168.1.9/pi /Users/username/smb_shared
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+</article>
 
 
-  <article class="post-content">
-    <ul class="posts-list">
-      
-      <li><strong><a class="post-link" href="/lxc-port-forwarding">LXC port forwarding</a></strong><span class="post-date"> - December 9, 2016</span></li>
-      
-      <li><strong><a class="post-link" href="/import-virtual-box-machine-to-vagrant">Import virtual box machine to vagrant</a></strong><span class="post-date"> - August 29, 2014</span></li>
-      
-    </ul>
-  </article>
+
+<section class="tags">
+  <strong>Tags:</strong> <a href="/tag/raspberry-pi">raspberry-pi</a>,&nbsp;<a href="/tag/nfs">nfs</a>,&nbsp;<a href="/tag/samba">samba</a>
+</section>
+
+
+
+<section class="rss">
+  <p class="rss-subscribe text"><strong>Subscribe <a href="/feed.xml">via RSS</a></strong></p>
+</section>
+
+<section class="share">
+  <span>Share: </span>
+  
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      <a href="//www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fpratz.github.io%2Fraspi-nfs-smb"
+        onclick="window.open(this.href, 'linkedin-share', 'width=550,height=255');return false;">
+        <i class="fa fa-linkedin-square fa-lg"></i>
+      </a>
+    
+    
+    
+    
+  
+    
+    
+      <a href="//twitter.com/share?text=Raspberry+pi+setup+NFS+and+SMB+server&url=http%3A%2F%2Fpratz.github.io%2Fraspi-nfs-smb&via=pratz"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=255');return false;">
+        <i class="fa fa-twitter-square fa-lg"></i>
+      </a>
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+      <a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent('http://pratz.github.io/raspi-nfs-smb') + '&title=Raspberry pi setup NFS and SMB server'; return false">
+        <i class="fa fa-reddit-square fa-lg"></i>
+      </a>
+    
+    
+  
+</section>
+
+
+
+
+<section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'pratz0909';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
 
 </div>
 </div>
-<br>
 
     </div>
 
