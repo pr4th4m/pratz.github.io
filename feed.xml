@@ -6,9 +6,134 @@
 </description>
     <link>http://pratz.github.io/</link>
     <atom:link href="http://pratz.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 26 Jun 2017 18:07:01 +0000</pubDate>
-    <lastBuildDate>Mon, 26 Jun 2017 18:07:01 +0000</lastBuildDate>
+    <pubDate>Mon, 15 Jan 2018 09:59:41 +0000</pubDate>
+    <lastBuildDate>Mon, 15 Jan 2018 09:59:41 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Versioner</title>
+        <description>&lt;h3 id=&quot;versioner&quot;&gt;Versioner&lt;/h3&gt;
+&lt;p&gt;Version reader/writer for popular package managers as per &lt;a href=&quot;https://semver.org/&quot;&gt;SemVer&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Installation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install git+https://github.com/VeritasOS/versioner.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Current support&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;npm&lt;/li&gt;
+  &lt;li&gt;dep&lt;/li&gt;
+  &lt;li&gt;json&lt;/li&gt;
+  &lt;li&gt;toml&lt;/li&gt;
+  &lt;li&gt;yaml (currently multi doc in single file not supported)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Usage&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Read version (run command from project root)&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &amp;gt; versioner read npm  # projects based on npm
+  &quot;0.0.1&quot;
+
+  &amp;gt; versioner read dep  # golang projects
+  &quot;0.1.1&quot;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Write version (run command from project root)&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # package.json
+  ....
+  &quot;version&quot;: &quot;1.1.1&quot;,
+  ....
+
+  # Release patch version
+  &amp;gt; versioner write npm --inc-patch
+
+  # package.json
+  ....
+  &quot;version&quot;: &quot;1.1.2&quot;,
+  ....
+
+  # Release minor version
+  &amp;gt; versioner write npm --inc-minor
+
+  ....
+  &quot;version&quot;: &quot;1.2.0&quot;,
+  ....
+
+  # Release major version
+  &amp;gt; versioner write npm --inc-major
+
+  ....
+  &quot;version&quot;: &quot;2.0.0&quot;,
+  ....
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Read version from custom file&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &amp;gt; versioner read yaml --file /root/app/version.yaml --key-depth metadata,version
+  0.0.2
+
+  version.yaml
+  ---
+  metadata:
+    version: 0.0.2
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Write version to custom file&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &amp;gt; versioner write yaml --inc-major --file /root/app/version.yaml --key-depth metadata,version
+
+  version.yaml
+  ---
+  metadata:
+    version: 1.0.0
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;development&quot;&gt;Development&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/VeritasOS/versioner.git
+cd versioner
+pip install -e .
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;This utility is tested for npm and dep.&lt;/li&gt;
+  &lt;li&gt;Read/write for custom file may break, please feel free to send a patch.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 02 Dec 2017 00:00:00 +0000</pubDate>
+        <link>http://pratz.github.io/versioner</link>
+        <guid isPermaLink="true">http://pratz.github.io/versioner</guid>
+        
+        <category>python</category>
+        
+        <category>npm</category>
+        
+        <category>dep</category>
+        
+        <category>yaml</category>
+        
+        <category>json</category>
+        
+        
+        <category>devops</category>
+        
+      </item>
     
       <item>
         <title>Raspberry pi setup NFS and SMB server</title>
@@ -752,81 +877,6 @@ This blog will demonstrate on how to build custom git credential helper.&lt;/p&g
         
         
         <category>version-control-system</category>
-        
-      </item>
-    
-      <item>
-        <title>Netrc python client</title>
-        <description>&lt;h4 id=&quot;what-is-netrc-file-&quot;&gt;What is Netrc file ?&lt;/h4&gt;
-&lt;p&gt;Netrc file contains user credentials and is used to auto-login. It is usually located in users home directory &lt;code class=&quot;highlighter-rouge&quot;&gt;.netrc&lt;/code&gt; but location can be overridden with &lt;code class=&quot;highlighter-rouge&quot;&gt;NETRC&lt;/code&gt; environment variable. Netrc also supports macros &lt;code class=&quot;highlighter-rouge&quot;&gt;macdef&lt;/code&gt; to automate tasks. Netrc can be used with ftp, curl, git etc.&lt;/p&gt;
-
-&lt;h4 id=&quot;netrc-file-sample&quot;&gt;Netrc file sample:&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ $ cat .netrc
-machine product.company.com
-login first.last
-password secret-password
-
-macdef macro-name1
-command1
-command2
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;get-client&quot;&gt;Get client:&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -o netrc_client.py  &quot;https://gist.githubusercontent.com/pratz/789dc165c6d9f79be86608547b128c69/raw/41fb7796f6b6d0a09ac5ddeaf8c79de30a2387ed/NetRc%2520-%2520read,%2520write,%2520update&quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;client-compatibility&quot;&gt;Client compatibility:&lt;/h4&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- Linux/Mac
-- Python 2.7.x
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;usage&quot;&gt;Usage:&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# create client
-netrc_instance = NetRc(
-        &quot;product.company.com&quot;,
-        login=&quot;first.last&quot;,
-        password=&quot;secret-password&quot;,
-        account=&quot;&quot;, # account is optional
-        )
-
-# create or update file content
-netrc_instance.create_or_update()
-
-# Custom file path (not recommended, as other programs might look for .netrc in users home directory)
-NETRC_FILE_PATH = /custom/file/path
-netrc_instance.create_or_update(path=NETRC_FILE_PATH)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;warning&quot;&gt;Warning:&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;Netrc stores credentials in plan text. This is how netrc is meant to be ;)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;use-case&quot;&gt;Use case:&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;Its a good idea to use netrc when you have token based authentication.&lt;/li&gt;
-  &lt;li&gt;Automation for service accounts with token based authentication.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Mon, 07 Mar 2016 00:00:00 +0000</pubDate>
-        <link>http://pratz.github.io/netrc-python-client</link>
-        <guid isPermaLink="true">http://pratz.github.io/netrc-python-client</guid>
-        
-        <category>python</category>
-        
-        <category>netrc</category>
-        
-        <category>api</category>
-        
-        
-        <category>api-client</category>
         
       </item>
     
